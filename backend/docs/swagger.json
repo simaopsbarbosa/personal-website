@@ -6,7 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "basePath": "/api/v1",
+    "basePath": "/",
     "paths": {
         "/auth/login": {
             "post": {
@@ -28,7 +28,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.User"
+                            "$ref": "#/definitions/dto.UserLoginRequest"
                         }
                     }
                 ],
@@ -36,8 +36,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/dto.LoginResponse"
                         }
                     },
                     "400": {
@@ -90,7 +89,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.User"
+                            "$ref": "#/definitions/dto.UserRegisterRequest"
                         }
                     }
                 ],
@@ -98,7 +97,7 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.User"
+                            "$ref": "#/definitions/dto.UserResponse"
                         }
                     },
                     "400": {
@@ -150,7 +149,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.Post"
+                                "$ref": "#/definitions/dto.PostResponse"
                             }
                         }
                     },
@@ -202,7 +201,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/dto.PostCreateRequest"
                         }
                     }
                 ],
@@ -210,7 +209,7 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/dto.PostResponse"
                         }
                     },
                     "400": {
@@ -260,7 +259,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/dto.PostResponse"
                         }
                     },
                     "400": {
@@ -318,7 +317,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/dto.PostCreateRequest"
                         }
                     }
                 ],
@@ -419,13 +418,41 @@
         }
     },
     "definitions": {
-        "main.Post": {
+        "dto.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/dto.UserResponse"
+                }
+            }
+        },
+        "dto.PostCreateRequest": {
             "type": "object",
             "required": [
                 "content",
                 "title",
                 "user_id"
             ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.PostResponse": {
+            "type": "object",
             "properties": {
                 "content": {
                     "type": "string"
@@ -442,18 +469,50 @@
                 "title": {
                     "type": "string"
                 },
+                "updated_at": {
+                    "type": "string"
+                },
                 "user_id": {
                     "type": "integer"
                 }
             }
         },
-        "main.User": {
+        "dto.UserLoginRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UserRegisterRequest": {
             "type": "object",
             "required": [
                 "email",
                 "name",
                 "password"
             ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UserResponse": {
+            "type": "object",
             "properties": {
                 "created_at": {
                     "type": "string"
@@ -467,7 +526,7 @@
                 "name": {
                     "type": "string"
                 },
-                "password": {
+                "updated_at": {
                     "type": "string"
                 }
             }

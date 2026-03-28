@@ -1,4 +1,4 @@
-module simaopsbarbosa/blog-be
+module simaopsbarbosa/backend
 
 go 1.25.4
 

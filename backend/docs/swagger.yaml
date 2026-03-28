@@ -1,13 +1,16 @@
-basePath: /api/v1
+basePath: /
 definitions:
-  main.Post:
+  dto.LoginResponse:
+    properties:
+      message:
+        type: string
+      user:
+        $ref: '#/definitions/dto.UserResponse'
+    type: object
+  dto.PostCreateRequest:
     properties:
       content:
         type: string
-      created_at:
-        type: string
-      id:
-        type: integer
       slug:
         type: string
       title:
@@ -19,7 +22,47 @@ definitions:
     - title
     - user_id
     type: object
-  main.User:
+  dto.PostResponse:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      slug:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  dto.UserLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.UserRegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  dto.UserResponse:
     properties:
       created_at:
         type: string
@@ -29,12 +72,8 @@ definitions:
         type: integer
       name:
         type: string
-      password:
+      updated_at:
         type: string
-    required:
-    - email
-    - name
-    - password
     type: object
 info:
   contact: {}
@@ -53,15 +92,14 @@ paths:
         name: payload
         required: true
         schema:
-          $ref: '#/definitions/main.User'
+          $ref: '#/definitions/dto.UserLoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/dto.LoginResponse'
         "400":
           description: Bad Request
           schema:
@@ -94,14 +132,14 @@ paths:
         name: payload
         required: true
         schema:
-          $ref: '#/definitions/main.User'
+          $ref: '#/definitions/dto.UserRegisterRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/main.User'
+            $ref: '#/definitions/dto.UserResponse'
         "400":
           description: Bad Request
           schema:
@@ -135,7 +173,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/main.Post'
+              $ref: '#/definitions/dto.PostResponse'
             type: array
         "400":
           description: Bad Request
@@ -168,14 +206,14 @@ paths:
         name: payload
         required: true
         schema:
-          $ref: '#/definitions/main.Post'
+          $ref: '#/definitions/dto.PostCreateRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/main.Post'
+            $ref: '#/definitions/dto.PostResponse'
         "400":
           description: Bad Request
           schema:
@@ -246,7 +284,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.Post'
+            $ref: '#/definitions/dto.PostResponse'
         "400":
           description: Bad Request
           schema:
@@ -283,7 +321,7 @@ paths:
         name: payload
         required: true
         schema:
-          $ref: '#/definitions/main.Post'
+          $ref: '#/definitions/dto.PostCreateRequest'
       produces:
       - application/json
       responses:
