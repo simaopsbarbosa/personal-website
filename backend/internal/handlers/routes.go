@@ -15,4 +15,6 @@ func RegisterRoutes(router *gin.Engine, db *sql.DB) {
 	router.GET("/posts/:slug", GetPostHandler(db))
 	router.PUT("/posts/:slug", UpdatePostHandler(db))
 	router.DELETE("/posts/:slug", DeletePostHandler(db))
+
+	router.POST("/upload", UploadImageHandler())
 }

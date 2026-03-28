@@ -33,3 +33,6 @@ __debug_bin
 .vscode/
 tmp/
 
+# Uploaded images
+uploads/
+

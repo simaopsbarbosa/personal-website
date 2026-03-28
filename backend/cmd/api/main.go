@@ -33,6 +33,12 @@ func main() {
 
 	handlers.RegisterRoutes(r, db)
 
+	// Serve uploaded files
+	if _, err := os.Stat("uploads"); os.IsNotExist(err) {
+		_ = os.Mkdir("uploads", 0755)
+	}
+	r.Static("/uploads", "./uploads")
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
