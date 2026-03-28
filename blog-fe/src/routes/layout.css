@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+body {
+  @apply bg-neutral-900 text-white;
+}
+
+h1 {
+    @apply text-4xl font-bold mb-4 mt-8;
+}
+
+a {
+    @apply hover:underline;
+}
