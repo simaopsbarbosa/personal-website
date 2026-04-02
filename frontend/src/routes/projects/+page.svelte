@@ -1,2 +1,1 @@
-<h1>Projects</h1>
-<p>This is the empty projects page.</p>
+<h2>these are my projects</h2>

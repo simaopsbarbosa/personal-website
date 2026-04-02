@@ -1,20 +1,20 @@
-<script>
-	import { resolve } from '$app/paths';
-	import './layout.css';
 
+<script lang="ts">
+	import './layout.css';
+	import favicon from '$lib/assets/favicon.svg';
+	import { resolve } from '$app/paths';
+	
 	let { children } = $props();
 </script>
 
-<nav class="m-4 flex items-center justify-between gap-4 border border-neutral-700 px-8 py-4">
-	<a class="text-xl font-bold" href={resolve('/')}>Simao Barbosa</a>
-	<div class="flex gap-4">
-		<a href={resolve('/about')}>about</a>
-		<a href={resolve('/projects')}>projects</a>
-		<a href={resolve('/blog')}>blog</a>
-		<a href={resolve('/contact')}>contact</a>
-	</div>
-</nav>
+<svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<main class="mx-auto max-w-4xl">
+<div class="max-w-5xl mx-auto min-h-screen">	
+	<nav class="flex gap-4 px-4 py-12 mx-auto justify-around max-w-md">
+		<a href={resolve('/')}>Home</a>
+		<a href={resolve('/blog')}>Blog</a>
+		<a href={resolve('/projects')}>Projects</a>
+	</nav>
+	
 	{@render children()}
-</main>
+</div>

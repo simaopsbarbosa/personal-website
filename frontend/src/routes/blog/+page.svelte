@@ -1,1 +1,1 @@
-<h1>all posts</h1>
+<h2>welcome to my blog</h2>

@@ -2,14 +2,21 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-body {
-  @apply bg-neutral-900 text-white;
+* {
+	font-family: 'Times New Roman', Times, serif;
 }
 
 h1 {
-    @apply text-4xl font-bold mb-4 mt-8;
+	font-size: 2.25rem;
+	line-height: 2.5rem;
 }
 
-a {
-    @apply hover:underline;
+h2 {
+	font-size: 1.875rem;
+	line-height: 2.25rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+	line-height: 2rem;
 }
