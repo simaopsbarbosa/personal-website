@@ -6,8 +6,14 @@
 	font-family: 'Times New Roman', Times, serif;
 }
 
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f3f3f3;
+}
+
 h1 {
-	font-size: 2.25rem;
+	font-size: 2.5rem;
 	line-height: 2.5rem;
 }
 
@@ -19,4 +25,16 @@ h2 {
 h3 {
 	font-size: 1.5rem;
 	line-height: 2rem;
+}
+
+.secondary {
+	font-family: monospace;
+	color: #a8a8a8;
+}
+
+.centered {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }

@@ -1,1 +1,1 @@
-<h2>this is a <strong>blog</strong> post</h2>
+<h2>This is a <strong>blog</strong> post.</h2>
