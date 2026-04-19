@@ -9,27 +9,26 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #f3f3f3;
+	background-color: #f0f0f0;
 }
 
 h1 {
 	font-size: 2.5rem;
 	line-height: 2.5rem;
+	letter-spacing: -0.05em;
+	font-weight: bold;
 }
 
 h2 {
 	font-size: 1.875rem;
+	font-weight: bold;
 	line-height: 2.25rem;
-}
-
-h3 {
-	font-size: 1.5rem;
-	line-height: 2rem;
+	letter-spacing: -0.05em;
 }
 
 .secondary {
 	font-family: monospace;
-	color: #a8a8a8;
+	color: #c4c4c4;
 }
 
 .centered {
@@ -37,4 +36,11 @@ h3 {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+
+.dotted-underline {
+	text-decoration: underline;
+	text-decoration-color: #c4c4c4;
+	text-decoration-style: dotted;
+	text-underline-offset: 3px;
 }

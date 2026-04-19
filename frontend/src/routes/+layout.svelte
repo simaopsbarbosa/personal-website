@@ -25,8 +25,6 @@
 	<NavButton title="Blog" link={resolve('/blog')} isClicked={isActive('/blog')} />
 </nav>
 
-<div class="max-w-5xl mx-auto min-h-screen">
-		
-	
+<div class="max-w-4xl mx-auto min-h-screen">
 	{@render children()}
 </div>
