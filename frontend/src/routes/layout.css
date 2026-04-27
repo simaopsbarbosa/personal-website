@@ -6,10 +6,15 @@
 	font-family: 'Times New Roman', Times, serif;
 }
 
+::selection {
+	background-color: black;
+	color: #eee;
+}
+
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #f0f0f0;
+	background-color: #eee;
 }
 
 h1 {
@@ -28,7 +33,7 @@ h2 {
 
 .secondary {
 	font-family: monospace;
-	color: #c4c4c4;
+	color: #aaa;
 }
 
 .centered {
@@ -40,7 +45,7 @@ h2 {
 
 .dotted-underline {
 	text-decoration: underline;
-	text-decoration-color: #c4c4c4;
+	text-decoration-color: #aaa;
 	text-decoration-style: dotted;
 	text-underline-offset: 3px;
 }

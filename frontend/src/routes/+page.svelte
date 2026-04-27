@@ -1,6 +1,6 @@
 
     <h1 class="centered mt-12">Simão Barbosa</h1>
-    <p class="centered secondary text-lg">Software Engineer, based in Portugal</p>
+    <p class="centered text-lg">Software Engineer, based in Portugal</p>
     
     <div class="flex gap-2 justify-center mt-8">
         <a href="https://github.com/simaopsbarbosa" target="_blank" aria-label="Simão's GitHub" title="Simão's GitHub">
