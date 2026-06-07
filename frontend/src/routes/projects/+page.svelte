@@ -4,6 +4,7 @@
     import fallboundLogo from '$lib/assets/logos/fallbound.svg';
     import sixerLogo from '$lib/assets/logos/sixer.png';
     import pingpongLogo from '$lib/assets/logos/pingpong.png';
+    import whatimonLogo from '$lib/assets/logos/whatimon.svg';
 
     const projects = [
         {
@@ -17,6 +18,12 @@
             description: 'Inclui is a mobile app for finding and reporting accessibility features in public spaces, powered by community-verified data.',
             link: 'https://github.com/simaopsbarbosa/inclui',
             logo: incluiLogo
+        },
+        {
+            title: 'what i\'m on',
+            description: 'what i\'m on is a personal space to showcase your current obsessions and crowdsource your next favorite thing.',
+            link: 'https://github.com/peucastro/what-im-on/',
+            logo: whatimonLogo
         },
         {
             title: 'PingPong Q&A',
@@ -35,7 +42,7 @@
             description: 'Fallbound is a 2D platformer game where the player must fall down a series of platforms and gain power while defeating enemies. How far can you fall?',
             link: 'https://github.com/simaopsbarbosa/fallbound',
             logo: fallboundLogo
-        }
+        },
     ];
 </script>
 
@@ -49,7 +56,7 @@
             <div class="flex">
                 <div class="w-38 flex justify-center items-center">
                     {#if project.logo}
-                        <a href="{project.link}"><img src={project.logo} alt="{project.title} logo" class="max-h-6 w-auto max-w-24" /></a>
+                        <a href="{project.link}"><img src={project.logo} alt="{project.title} logo" class="max-h-10 w-auto max-w-20" /></a>
                     {/if}
                 </div>
                 <div class="w-9/10 pl-4 border-l border-dotted">

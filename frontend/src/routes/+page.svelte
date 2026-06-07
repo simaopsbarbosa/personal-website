@@ -1,5 +1,5 @@
 
-    <h1 class="centered mt-12">Simão Barbosa</h1>
+    <h1 class="centered font-title mt-12">Simão Barbosa</h1>
     <p class="centered text-lg">Software Engineer, based in Portugal</p>
     
     <div class="flex gap-2 justify-center mt-8">

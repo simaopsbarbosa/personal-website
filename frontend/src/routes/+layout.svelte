@@ -1,7 +1,7 @@
 
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.png';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import cv from '$lib/assets/cv.pdf';

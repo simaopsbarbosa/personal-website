@@ -6,9 +6,21 @@
 	font-family: 'Times New Roman', Times, serif;
 }
 
+@font-face {
+  font-family: 'TitleFont';
+  src: url('$lib/assets/fonts/sd_auto_pilot.woff2') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 ::selection {
 	background-color: black;
 	color: #eee;
+}
+
+.font-title {
+	font-family: 'TitleFont', serif !important;
 }
 
 body {
