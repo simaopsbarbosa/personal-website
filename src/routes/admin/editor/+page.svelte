@@ -173,6 +173,35 @@
 			target.value = '';
 		}
 	}
+
+	let textareaElement = $state<HTMLTextAreaElement>();
+
+	function insertHTML(prefix: string, suffix: string) {
+		if (!textareaElement) {
+			content = content + prefix + suffix;
+			return;
+		}
+		const start = textareaElement.selectionStart;
+		const end = textareaElement.selectionEnd;
+		const text = content;
+		const selected = text.substring(start, end);
+		const replacement = prefix + selected + suffix;
+		const before = text.substring(0, start);
+		const after = text.substring(end, text.length);
+		content = before + replacement + after;
+
+		// focus back and set selection
+		setTimeout(() => {
+			if (!textareaElement) return;
+			textareaElement.focus();
+			if (selected) {
+				textareaElement.selectionStart = start;
+				textareaElement.selectionEnd = start + replacement.length;
+			} else {
+				textareaElement.selectionStart = textareaElement.selectionEnd = start + prefix.length;
+			}
+		});
+	}
 </script>
 
 <div class="space-y-6">
@@ -241,9 +270,22 @@
 
 			<!-- HTML textarea -->
 			<div class="flex flex-col h-[50vh]">
-				<label for="content" class="secondary block mb-1">HTML code</label>
+				<div class="flex items-center justify-between mb-1 flex-wrap gap-2">
+					<label for="content" class="secondary">HTML code</label>
+					<div class="flex flex-wrap gap-2 text-xs">
+						<button onclick={() => insertHTML('<h2>', '</h2>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(h2)</button>
+						<button onclick={() => insertHTML('<p>', '</p>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(p)</button>
+						<button onclick={() => insertHTML('<strong>', '</strong>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(bold)</button>
+						<button onclick={() => insertHTML('<em>', '</em>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(italic)</button>
+						<button onclick={() => insertHTML('<a href="https://example.com" class="dotted-underline">', '</a>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(link)</button>
+						<button onclick={() => insertHTML('<blockquote>', '</blockquote>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(quote)</button>
+						<button onclick={() => insertHTML('<ul>\n\t<li>', '</li>\n\t<li></li>\n</ul>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(list)</button>
+						<button onclick={() => insertHTML('<code>', '</code>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(code)</button>
+					</div>
+				</div>
 				<textarea
 					id="content"
+					bind:this={textareaElement}
 					bind:value={content}
 					placeholder="write HTML here..."
 					class="border border-dashed p-3 w-full grow font-mono leading-relaxed outline-hidden focus:border-black resize-none"
@@ -267,28 +309,33 @@
 
 <style>
 	:global(.prose h1) {
+		color:black;
 		font-size: 1.8rem;
 		font-weight: bold;
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
 	:global(.prose h2) {
+		color:black;
 		font-size: 1.5rem;
 		font-weight: bold;
 		margin-top: 1.2rem;
 		margin-bottom: 0.4rem;
 	}
 	:global(.prose p) {
+		color:black;
 		margin-bottom: 1rem;
 		line-height: 1.6;
 	}
 	:global(.prose code) {
-		background-color: #fff;
+		background-color: black;
+		color:white;
 		padding: 0.2rem 0.4rem;
 		font-family: monospace;
 	}
 	:global(.prose pre) {
-		background-color: #000;
+		background-color: black;
+		border-radius: 0px !important;
 		color: #f9fafb;
 		padding: 1rem;
 		overflow-x: auto;
