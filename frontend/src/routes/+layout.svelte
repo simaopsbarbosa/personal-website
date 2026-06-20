@@ -23,13 +23,13 @@
 	<title>Simão Barbosa</title>
 </svelte:head>
 
-<nav class="flex my-12 mx-auto justify-center max-w-md min-w-full border border-dotted">
+<nav class="flex my-12 mx-auto justify-center max-w-md min-w-full border-y border-dotted">
 	<NavButton title="Home" link={resolve('/')} isClicked={isActive('/')} />
 	<NavButton title="Projects" link={resolve('/projects')} isClicked={isActive('/projects')} />
 	<NavButton title="Blog" link={resolve('/blog')} isClicked={isActive('/blog')} />
 	<NavButton title="CV" link={cv} isClicked={false} />
 </nav>
 
-<div class="max-w-4xl mx-auto min-h-screen">
+<div class="max-w-3xl mx-auto min-h-screen">
 	{@render children()}
 </div>

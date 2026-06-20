@@ -48,7 +48,7 @@
 
 
 <h2 class="centered">My Work</h2>
-<p class="centered">The projects I'm proudest of.</p>
+<p class="centered">The projects I'm proudest of</p>
 
 <div class="mt-12 mx-10">
     <div class="space-y-3">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="w-9/10 pl-4 border-l border-dotted">
                     <p>{project.description}</p>
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" class="secondary">({project.link.slice(8)})</a>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" class="hover:underline secondary">({project.link.slice(8)})</a>
                 </div>
             </div>
         {/each}
