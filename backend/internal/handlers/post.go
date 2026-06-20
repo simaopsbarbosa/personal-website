@@ -89,7 +89,7 @@ func GetPostHandler(db *sql.DB) gin.HandlerFunc {
 		var post dto.PostResponse
 
 		err := db.QueryRow(
-			"SELECT COALESCE(id, rowid), slug, title, content, COALESCE(created_at, ''), COALESCE(updated_at, '') FROM posts WHERE slug = ?",
+			"SELECT id, slug, title, content, created_at, updated_at FROM posts WHERE slug = ?",
 			slug,
 		).Scan(&post.ID, &post.Slug, &post.Title, &post.Content, &post.CreatedAt, &post.UpdatedAt)
 		if err != nil {
@@ -123,7 +123,7 @@ func GetAllPostsHandler(db *sql.DB) gin.HandlerFunc {
 		posts := []dto.PostResponse{}
 
 		rows, err := db.Query(
-			"SELECT COALESCE(id, rowid), slug, title, content, COALESCE(created_at, ''), COALESCE(updated_at, '') FROM posts",
+			"SELECT id, slug, title, content, created_at, updated_at FROM posts",
 		)
 		if err != nil {
 			log.Println("failed to fetch posts:", err)
@@ -179,7 +179,7 @@ func UpdatePostHandler(db *sql.DB) gin.HandlerFunc {
 		}
 
 		var existingID int
-		err := db.QueryRow("SELECT COALESCE(id, rowid) FROM posts WHERE slug = ?", slug).Scan(&existingID)
+		err := db.QueryRow("SELECT id FROM posts WHERE slug = ?", slug).Scan(&existingID)
 		if err != nil {
 			if errors.Is(err, sql.ErrNoRows) {
 				c.JSON(http.StatusNotFound, gin.H{"error": "post not found"})

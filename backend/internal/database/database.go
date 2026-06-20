@@ -20,11 +20,6 @@ func InitDB() *sql.DB {
 		log.Fatal("Failed to open database:", err)
 	}
 
-	// restrict file permissions to owner-only (600)
-	if err := os.Chmod(dbPath, 0600); err != nil {
-		log.Println("Warning: could not set DB file permissions:", err)
-	}
-
 	schema, err := os.ReadFile("seed.sql")
 	if err != nil {
 		log.Fatal("Failed to read seed.sql:", err)
@@ -34,6 +29,11 @@ func InitDB() *sql.DB {
 	_, err = db.Exec(string(schema))
 	if err != nil {
 		log.Fatal("Failed to execute schema:", err)
+	}
+
+	// restrict database file permissions
+	if err := os.Chmod(dbPath, 0600); err != nil {
+		log.Println("Warning: could not set DB file permissions:", err)
 	}
 
 	return db

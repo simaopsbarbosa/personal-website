@@ -5,11 +5,6 @@ type PostCreateRequest struct {
 	Content string `json:"content" binding:"required"`
 }
 
-type PostUpdateRequest struct {
-	Title   string `json:"title,omitempty"`
-	Content string `json:"content,omitempty"`
-}
-
 type PostResponse struct {
 	ID        int    `json:"id"`
 	Slug      string `json:"slug"`
