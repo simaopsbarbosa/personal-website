@@ -4,17 +4,23 @@ import (
 	"database/sql"
 
 	"github.com/gin-gonic/gin"
+	"simaopsbarbosa/backend/internal/middleware"
 )
 
 func RegisterRoutes(router *gin.Engine, db *sql.DB) {
-	router.POST("/auth/register", RegisterHandler(db))
-	router.POST("/auth/login", LoginHandler(db))
+	router.POST("/auth/login", LoginHandler())
 
-	router.POST("/posts", CreatePostHandler(db))
+	// public routes
 	router.GET("/posts", GetAllPostsHandler(db))
 	router.GET("/posts/:slug", GetPostHandler(db))
-	router.PUT("/posts/:slug", UpdatePostHandler(db))
-	router.DELETE("/posts/:slug", DeletePostHandler(db))
 
-	router.POST("/upload", UploadImageHandler())
+	// protected routes
+	protected := router.Group("/")
+	protected.Use(middleware.AuthMiddleware())
+	{
+		protected.POST("/posts", CreatePostHandler(db))
+		protected.PUT("/posts/:slug", UpdatePostHandler(db))
+		protected.DELETE("/posts/:slug", DeletePostHandler(db))
+		protected.POST("/upload", UploadImageHandler())
+	}
 }

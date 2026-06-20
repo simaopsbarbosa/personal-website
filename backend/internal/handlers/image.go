@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -40,8 +41,13 @@ func UploadImageHandler() gin.HandlerFunc {
 			}
 		}
 
-		// Generate a unique filename
+		// generate a unique filename and validate extension
 		ext := filepath.Ext(file.Filename)
+		if !isAllowedExtension(ext) {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "file type not allowed"})
+			return
+		}
+
 		filename := fmt.Sprintf("%d%s", time.Now().UnixNano(), ext)
 		filePath := filepath.Join(uploadDir, filename)
 
@@ -51,13 +57,12 @@ func UploadImageHandler() gin.HandlerFunc {
 			return
 		}
 
-		// Return the URL
+		// return the URL
 		scheme := "http"
 		if c.Request.TLS != nil {
 			scheme = "https"
 		}
 		
-		// in production i should use a fixed BASE_URL from environment variables
 		host := c.Request.Host
 		fileURL := fmt.Sprintf("%s://%s/uploads/%s", scheme, host, filename)
 
@@ -65,5 +70,14 @@ func UploadImageHandler() gin.HandlerFunc {
 			"url":      fileURL,
 			"filename": filename,
 		})
+	}
+}
+
+func isAllowedExtension(ext string) bool {
+	switch strings.ToLower(ext) {
+	case ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg":
+		return true
+	default:
+		return false
 	}
 }

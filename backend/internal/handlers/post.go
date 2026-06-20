@@ -35,27 +35,19 @@ func CreatePostHandler(db *sql.DB) gin.HandlerFunc {
 
 		payload.Title = strings.TrimSpace(payload.Title)
 		payload.Content = strings.TrimSpace(payload.Content)
-		payload.Slug = strings.TrimSpace(payload.Slug)
 
-		slugSource := payload.Slug
-		if slugSource == "" {
-			slugSource = payload.Title
-		}
-
-		uniqueSlug, err := utils.GenerateUniquePostSlug(db, slugSource, 0)
+		uniqueSlug, err := utils.GenerateUniquePostSlug(db, payload.Title, 0)
 		if err != nil {
 			log.Println("failed to generate slug:", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create post"})
 			return
 		}
-		payload.Slug = uniqueSlug
 
 		result, err := db.Exec(
-			"INSERT INTO posts (user_id, title, content, slug) VALUES (?, ?, ?, ?)",
-			payload.UserID,
+			"INSERT INTO posts (title, content, slug) VALUES (?, ?, ?)",
 			payload.Title,
 			payload.Content,
-			payload.Slug,
+			uniqueSlug,
 		)
 		if err != nil {
 			log.Println("failed to create post:", err)
@@ -66,8 +58,7 @@ func CreatePostHandler(db *sql.DB) gin.HandlerFunc {
 		id, _ := result.LastInsertId()
 		response := dto.PostResponse{
 			ID:      int(id),
-			UserID:  payload.UserID,
-			Slug:    payload.Slug,
+			Slug:    uniqueSlug,
 			Title:   payload.Title,
 			Content: payload.Content,
 		}
@@ -98,9 +89,9 @@ func GetPostHandler(db *sql.DB) gin.HandlerFunc {
 		var post dto.PostResponse
 
 		err := db.QueryRow(
-			"SELECT COALESCE(id, rowid), user_id, slug, title, content, COALESCE(created_at, ''), COALESCE(updated_at, '') FROM posts WHERE slug = ?",
+			"SELECT COALESCE(id, rowid), slug, title, content, COALESCE(created_at, ''), COALESCE(updated_at, '') FROM posts WHERE slug = ?",
 			slug,
-		).Scan(&post.ID, &post.UserID, &post.Slug, &post.Title, &post.Content, &post.CreatedAt, &post.UpdatedAt)
+		).Scan(&post.ID, &post.Slug, &post.Title, &post.Content, &post.CreatedAt, &post.UpdatedAt)
 		if err != nil {
 			if errors.Is(err, sql.ErrNoRows) {
 				c.JSON(http.StatusNotFound, gin.H{"error": "post not found"})
@@ -132,7 +123,7 @@ func GetAllPostsHandler(db *sql.DB) gin.HandlerFunc {
 		posts := []dto.PostResponse{}
 
 		rows, err := db.Query(
-			"SELECT COALESCE(id, rowid), user_id, slug, title, content, COALESCE(created_at, ''), COALESCE(updated_at, '') FROM posts",
+			"SELECT COALESCE(id, rowid), slug, title, content, COALESCE(created_at, ''), COALESCE(updated_at, '') FROM posts",
 		)
 		if err != nil {
 			log.Println("failed to fetch posts:", err)
@@ -143,7 +134,7 @@ func GetAllPostsHandler(db *sql.DB) gin.HandlerFunc {
 
 		for rows.Next() {
 			var post dto.PostResponse
-			if err := rows.Scan(&post.ID, &post.UserID, &post.Slug, &post.Title, &post.Content, &post.CreatedAt, &post.UpdatedAt); err != nil {
+			if err := rows.Scan(&post.ID, &post.Slug, &post.Title, &post.Content, &post.CreatedAt, &post.UpdatedAt); err != nil {
 				log.Println("failed to scan post:", err)
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch posts"})
 				return
@@ -207,27 +198,19 @@ func UpdatePostHandler(db *sql.DB) gin.HandlerFunc {
 
 		payload.Title = strings.TrimSpace(payload.Title)
 		payload.Content = strings.TrimSpace(payload.Content)
-		payload.Slug = strings.TrimSpace(payload.Slug)
 
-		slugSource := payload.Slug
-		if slugSource == "" {
-			slugSource = payload.Title
-		}
-
-		uniqueSlug, err := utils.GenerateUniquePostSlug(db, slugSource, existingID)
+		uniqueSlug, err := utils.GenerateUniquePostSlug(db, payload.Title, existingID)
 		if err != nil {
 			log.Println("failed to generate slug:", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to update post"})
 			return
 		}
-		payload.Slug = uniqueSlug
 
 		result, err := db.Exec(
-			"UPDATE posts SET user_id = ?, title = ?, content = ?, slug = ? WHERE id = ?",
-			payload.UserID,
+			"UPDATE posts SET title = ?, content = ?, slug = ? WHERE id = ?",
 			payload.Title,
 			payload.Content,
-			payload.Slug,
+			uniqueSlug,
 			existingID,
 		)
 		if err != nil {
@@ -242,7 +225,7 @@ func UpdatePostHandler(db *sql.DB) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"message": "post updated", "slug": payload.Slug})
+		c.JSON(http.StatusOK, gin.H{"message": "post updated", "slug": uniqueSlug})
 	}
 }
 

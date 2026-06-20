@@ -2,7 +2,6 @@ package models
 
 type Post struct {
 	ID        int    `json:"id"`
-	UserID    int    `json:"user_id" binding:"required"`
 	Slug      string `json:"slug,omitempty"`
 	Title     string `json:"title" binding:"required"`
 	Content   string `json:"content" binding:"required"`

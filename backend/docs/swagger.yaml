@@ -4,23 +4,18 @@ definitions:
     properties:
       message:
         type: string
-      user:
-        $ref: '#/definitions/dto.UserResponse'
+      token:
+        type: string
     type: object
   dto.PostCreateRequest:
     properties:
       content:
         type: string
-      slug:
-        type: string
       title:
         type: string
-      user_id:
-        type: integer
     required:
     - content
     - title
-    - user_id
     type: object
   dto.PostResponse:
     properties:
@@ -36,44 +31,13 @@ definitions:
         type: string
       updated_at:
         type: string
-      user_id:
-        type: integer
     type: object
   dto.UserLoginRequest:
     properties:
-      email:
-        type: string
       password:
         type: string
     required:
-    - email
     - password
-    type: object
-  dto.UserRegisterRequest:
-    properties:
-      email:
-        type: string
-      name:
-        type: string
-      password:
-        type: string
-    required:
-    - email
-    - name
-    - password
-    type: object
-  dto.UserResponse:
-    properties:
-      created_at:
-        type: string
-      email:
-        type: string
-      id:
-        type: integer
-      name:
-        type: string
-      updated_at:
-        type: string
     type: object
 info:
   contact: {}
@@ -85,7 +49,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: login with email and password
+      description: login with admin password
       parameters:
       - description: Login payload
         in: body
@@ -118,47 +82,7 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: login user
-      tags:
-      - auth
-  /auth/register:
-    post:
-      consumes:
-      - application/json
-      description: create a new user account
-      parameters:
-      - description: Register payload
-        in: body
-        name: payload
-        required: true
-        schema:
-          $ref: '#/definitions/dto.UserRegisterRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/dto.UserResponse'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "409":
-          description: Conflict
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: register user
+      summary: login admin
       tags:
       - auth
   /posts:

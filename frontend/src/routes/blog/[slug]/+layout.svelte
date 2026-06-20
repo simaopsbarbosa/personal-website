@@ -2,6 +2,8 @@
 	let { children } = $props();
 </script>
 
-<a href="/blog" class="secondary underline">(back)</a>
-
-<article class="mt-2 min-h-svh bg-white p-6 shadow">{@render children()}</article>
+<div class="p-6">
+	<a href="/blog" class="secondary">(back)</a>
+	
+	<article class="mt-2">{@render children()}</article>
+</div>

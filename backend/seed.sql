@@ -1,15 +1,5 @@
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     slug VARCHAR(255) UNIQUE,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
@@ -17,12 +7,7 @@ CREATE TABLE IF NOT EXISTS posts (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Triggers to update updated_at automatically
-CREATE TRIGGER IF NOT EXISTS update_users_updated_at AFTER UPDATE ON users
-BEGIN
-    UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
-END;
-
+-- update updated_at automatically
 CREATE TRIGGER IF NOT EXISTS update_posts_updated_at AFTER UPDATE ON posts
 BEGIN
     UPDATE posts SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;

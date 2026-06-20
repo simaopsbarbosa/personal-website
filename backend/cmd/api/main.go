@@ -12,6 +12,7 @@ import (
 	"simaopsbarbosa/backend/docs"
 	"simaopsbarbosa/backend/internal/database"
 	"simaopsbarbosa/backend/internal/handlers"
+	"simaopsbarbosa/backend/internal/middleware"
 )
 
 // @title Blog API
@@ -27,6 +28,7 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
+	r.Use(middleware.CORSMiddleware())
 
 	docs.SwaggerInfo.BasePath = "/"
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
