@@ -1,32 +1,40 @@
 import { goto } from '$app/navigation';
+import { supabase } from './supabase';
 
 export class AdminState {
 	#isAuthenticated = $state(false);
+	#isInitialized = $state(false);
+
+	constructor() {
+		if (typeof window !== 'undefined') {
+			supabase.auth.onAuthStateChange((event, session) => {
+				this.#isAuthenticated = !!session;
+				this.#isInitialized = true;
+			});
+		}
+	}
 
 	get isAuthenticated() {
 		return this.#isAuthenticated;
 	}
 
-	set isAuthenticated(value: boolean) {
-		this.#isAuthenticated = value;
+	get isInitialized() {
+		return this.#isInitialized;
 	}
 
-	login(token: string) {
-		localStorage.setItem('admin_token', token);
-		this.#isAuthenticated = true;
+	async checkAuth() {
+		const { data: { session } } = await supabase.auth.getSession();
+		this.#isAuthenticated = !!session;
+		this.#isInitialized = true;
+		return this.#isAuthenticated;
 	}
 
-	logout() {
-		localStorage.removeItem('admin_token');
+	async logout() {
+		await supabase.auth.signOut();
 		this.#isAuthenticated = false;
 		goto('/');
-	}
-
-	checkAuth() {
-		const token = localStorage.getItem('admin_token');
-		this.#isAuthenticated = !!token;
-		return this.#isAuthenticated;
 	}
 }
 
 export const adminState = new AdminState();
+

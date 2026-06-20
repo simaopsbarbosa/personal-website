@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 	import { formatDate } from '$lib/utils';
 	import { adminState } from '$lib/admin.svelte';
-
-	const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+	import { supabase } from '$lib/supabase';
 
 	let password = $state('');
 	let loginError = $state('');
@@ -14,8 +13,11 @@
 	let dashboardError = $state('');
 
 	onMount(async () => {
-		if (adminState.checkAuth()) {
+		const authenticated = await adminState.checkAuth();
+		if (authenticated) {
 			await fetchPosts();
+		} else {
+			isFetchingPosts = false;
 		}
 	});
 
@@ -27,23 +29,21 @@
 		loginError = '';
 
 		try {
-			const response = await fetch(`${API_URL}/auth/login`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ password })
+			const email = import.meta.env.VITE_ADMIN_EMAIL || 'admin@example.com';
+			const { error } = await supabase.auth.signInWithPassword({
+				email,
+				password
 			});
 
-			const result = await response.json();
-			if (!response.ok) {
-				loginError = result.error || 'invalid password';
+			if (error) {
+				loginError = error.message || 'invalid password';
 				isLoggingIn = false;
 				return;
 			}
 
-			adminState.login(result.token);
 			await fetchPosts();
 		} catch (err) {
-			loginError = 'connection failed. is the server running?';
+			loginError = 'connection failed. is Supabase configured correctly?';
 		} finally {
 			isLoggingIn = false;
 		}
@@ -53,19 +53,18 @@
 		isFetchingPosts = true;
 		dashboardError = '';
 		try {
-			const res = await fetch(`${API_URL}/posts`);
-			if (res.ok) {
-				posts = await res.json();
+			const { data, error } = await supabase
+				.from('posts')
+				.select('id, slug, title, created_at, updated_at')
+				.order('created_at', { ascending: false });
+
+			if (error) {
+				dashboardError = error.message || 'failed to fetch posts';
 			} else {
-				const err = await res.json();
-				if (res.status !== 404) {
-					dashboardError = err.error || 'failed to fetch posts';
-				} else {
-					posts = [];
-				}
+				posts = data || [];
 			}
 		} catch (err) {
-			dashboardError = 'failed to load posts from API.';
+			dashboardError = 'failed to load posts from Supabase.';
 		} finally {
 			isFetchingPosts = false;
 		}
@@ -74,23 +73,19 @@
 	async function deletePost(slug: string, title: string) {
 		if (!confirm(`delete post "${title}"?`)) return;
 
-		const token = localStorage.getItem('admin_token');
 		try {
-			const res = await fetch(`${API_URL}/posts/${slug}`, {
-				method: 'DELETE',
-				headers: {
-					'Authorization': `Bearer ${token}`
-				}
-			});
+			const { error } = await supabase
+				.from('posts')
+				.delete()
+				.eq('slug', slug);
 
-			if (res.ok) {
-				await fetchPosts();
+			if (error) {
+				alert(`failed to delete post: ${error.message || 'unknown error'}`);
 			} else {
-				const err = await res.json();
-				alert(`failed to delete post: ${err.error || 'unknown error'}`);
+				await fetchPosts();
 			}
 		} catch (err) {
-			alert('failed to connect to backend');
+			alert('failed to connect to Supabase');
 		}
 	}
 </script>

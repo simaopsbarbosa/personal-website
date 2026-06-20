@@ -13,32 +13,35 @@
 
 <style>
 	:global(.prose h1) {
+		color: black;
 		font-size: 1.8rem;
 		font-weight: bold;
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
 	:global(.prose h2) {
+		color: black;
 		font-size: 1.5rem;
 		font-weight: bold;
 		margin-top: 1.2rem;
 		margin-bottom: 0.4rem;
 	}
 	:global(.prose p) {
+		color: black;
 		margin-bottom: 1rem;
 		line-height: 1.6;
 	}
 	:global(.prose code) {
-		background-color: #f3f4f6;
+		background-color: #000;
+		color: white;
 		padding: 0.2rem 0.4rem;
-		border-radius: 0.25rem;
 		font-family: monospace;
 	}
 	:global(.prose pre) {
-		background-color: #1f2937;
-		color: #f9fafb;
+		background-color: #000000;
+		color: white;
+		border-radius: 0 !important;
 		padding: 1rem;
-		border-radius: 0.375rem;
 		overflow-x: auto;
 		margin-bottom: 1rem;
 	}

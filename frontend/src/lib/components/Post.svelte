@@ -10,7 +10,7 @@
 		<p class="secondary">{date}</p>
 		<div class="flex gap-1">
 			{#each Object.values(tags) as tag}
-				<span class="secondary bg-black px-1 pt-0.5 text-xs font-medium text-white!"
+				<span class="secondary bg-black px-1 pt-0.5 font-medium text-white!"
 					>{tag.toLowerCase()}</span
 				>
 			{/each}

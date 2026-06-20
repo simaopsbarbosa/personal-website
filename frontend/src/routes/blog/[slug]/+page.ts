@@ -1,20 +1,26 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { supabase } from '$lib/supabase';
 
 export const prerender = false;
 
-export const load: PageLoad = async ({ fetch, params }) => {
-	const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-	
+export const load: PageLoad = async ({ params }) => {
 	try {
-		const res = await fetch(`${API_URL}/posts/${params.slug}`);
-		if (res.ok) {
-			const post = await res.json();
-			return { post };
+		const { data: post, error: dbError } = await supabase
+			.from('posts')
+			.select('id, slug, title, content, created_at, updated_at')
+			.eq('slug', params.slug)
+			.single();
+
+		if (dbError || !post) {
+			console.error('failed to fetch post from Supabase:', dbError?.message);
+			throw error(404, 'post not found');
 		}
+
+		return { post };
 	} catch (e) {
-		console.error('failed to fetch post from backend:', e);
+		console.error('failed to fetch post from Supabase:', e);
+		throw error(404, 'post not found');
 	}
-	
-	throw error(404, 'post not found');
 };
+

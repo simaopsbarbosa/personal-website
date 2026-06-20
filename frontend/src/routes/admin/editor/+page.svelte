@@ -2,11 +2,12 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-
-	const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+	import { supabase } from '$lib/supabase';
+	import { adminState } from '$lib/admin.svelte';
 
 	let isEditing = $state(false);
 	let originalSlug = $state('');
+	let postID = $state<number | null>(null);
 
 	// post states
 	let title = $state('');
@@ -24,8 +25,8 @@
 	let imageUploadError = $state('');
 
 	onMount(async () => {
-		const token = localStorage.getItem('admin_token');
-		if (!token) {
+		const authenticated = await adminState.checkAuth();
+		if (!authenticated) {
 			goto('/admin');
 			return;
 		}
@@ -40,17 +41,48 @@
 
 	async function fetchPostDetails(slugParam: string) {
 		try {
-			const res = await fetch(`${API_URL}/posts/${slugParam}`);
-			if (res.ok) {
-				const post = await res.json();
+			const { data: post, error } = await supabase
+				.from('posts')
+				.select('*')
+				.eq('slug', slugParam)
+				.single();
+
+			if (error || !post) {
+				errorMessage = 'failed to fetch post details for editing.';
+			} else {
+				postID = post.id;
 				title = post.title;
 				slug = post.slug;
 				content = post.content;
-			} else {
-				errorMessage = 'failed to fetch post details for editing.';
 			}
 		} catch (err) {
-			errorMessage = 'error connecting to the backend API.';
+			errorMessage = 'error connecting to Supabase.';
+		}
+	}
+
+	function slugify(input: string): string {
+		let base = input.toLowerCase().trim();
+		base = base.replace(/[^a-z0-9]+/g, '-');
+		base = base.replace(/^-+|-+$/g, '');
+		return base || 'post';
+	}
+
+	async function generateUniqueSlug(titleStr: string, excludeId?: number): Promise<string> {
+		const baseSlug = slugify(titleStr);
+		let candidate = baseSlug;
+		let suffix = 2;
+
+		while (true) {
+			let query = supabase.from('posts').select('id').eq('slug', candidate);
+			if (excludeId) {
+				query = query.neq('id', excludeId);
+			}
+			const { data, error } = await query;
+			if (!data || data.length === 0) {
+				return candidate;
+			}
+			candidate = `${baseSlug}-${suffix}`;
+			suffix++;
 		}
 	}
 
@@ -64,23 +96,30 @@
 		errorMessage = '';
 		successMessage = '';
 
-		const token = localStorage.getItem('admin_token');
-		const url = isEditing ? `${API_URL}/posts/${originalSlug}` : `${API_URL}/posts`;
-		const method = isEditing ? 'PUT' : 'POST';
-
 		try {
-			const res = await fetch(url, {
-				method,
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${token}`
-				},
-				body: JSON.stringify({ title, content })
-			});
+			const finalSlug = await generateUniqueSlug(title, postID || undefined);
 
-			const result = await res.json();
-			if (!res.ok) {
-				errorMessage = result.error || 'failed to save post.';
+			let error;
+			if (isEditing && postID) {
+				const { error: err } = await supabase
+					.from('posts')
+					.update({
+						title,
+						content,
+						slug: finalSlug,
+						updated_at: new Date().toISOString()
+					})
+					.eq('id', postID);
+				error = err;
+			} else {
+				const { error: err } = await supabase
+					.from('posts')
+					.insert([{ title, content, slug: finalSlug }]);
+				error = err;
+			}
+
+			if (error) {
+				errorMessage = error.message || 'failed to save post.';
 				isSaving = false;
 				return;
 			}
@@ -90,7 +129,7 @@
 				goto('/admin');
 			}, 800);
 		} catch (err) {
-			errorMessage = 'failed to connect to backend.';
+			errorMessage = 'failed to connect to Supabase.';
 		} finally {
 			isSaving = false;
 		}
@@ -105,28 +144,27 @@
 		imageUploadError = '';
 		uploadedImageUrl = '';
 
-		const token = localStorage.getItem('admin_token');
-		const formData = new FormData();
-		formData.append('image', file);
-
 		try {
-			const res = await fetch(`${API_URL}/upload`, {
-				method: 'POST',
-				headers: {
-					'Authorization': `Bearer ${token}`
-				},
-				body: formData
-			});
+			const ext = file.name.split('.').pop();
+			const fileName = `${Date.now()}.${ext}`;
+			const filePath = `${fileName}`;
 
-			const result = await res.json();
-			if (!res.ok) {
-				imageUploadError = result.error || 'failed to upload image.';
+			const { data, error } = await supabase.storage
+				.from('blog-images')
+				.upload(filePath, file);
+
+			if (error) {
+				imageUploadError = error.message || 'failed to upload image.';
 				return;
 			}
 
-			uploadedImageUrl = result.url;
+			const { data: { publicUrl } } = supabase.storage
+				.from('blog-images')
+				.getPublicUrl(filePath);
+
+			uploadedImageUrl = publicUrl;
 			// append image tag in raw HTML
-			const imgTag = `<img src="${result.url}" alt="" class="max-w-full my-4" />`;
+			const imgTag = `<img src="${publicUrl}" alt="" class="max-w-full my-4" />`;
 			content = content + '\n' + imgTag;
 		} catch (err) {
 			imageUploadError = 'network error uploading image.';
