@@ -177,16 +177,6 @@
 				/>
 			</div>
 
-			<!-- slug -->
-			{#if isEditing}
-				<div>
-					<span class="secondary block mb-1">slug</span>
-					<div class="border p-2 w-full font-mono select-all">
-						{slug}
-					</div>
-				</div>
-			{/if}
-
 			<!-- image importer -->
 			<div class="border border-dashed p-3">
 				<label for="image-upload" class="secondary block mb-1">upload files</label>
