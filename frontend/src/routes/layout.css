@@ -6,6 +6,10 @@
 	font-family: 'Times New Roman', Times, serif;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 @font-face {
 	font-family: 'TitleFont';
 	src: url('$lib/assets/fonts/sd_auto_pilot.woff2') format('woff2');
@@ -16,7 +20,7 @@
 
 ::selection {
 	background-color: black;
-	color: #eee;
+	color: #fefefe;
 }
 
 .font-title {
@@ -26,14 +30,14 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #eee;
+	background-color: #fefefe;
 }
 
 h1 {
-	font-size: 2.5rem;
+	font-size: 2rem;
 	line-height: 2.5rem;
 	letter-spacing: -0.05em;
-	font-weight: bold;
+	font-weight:bolder;
 }
 
 h2 {

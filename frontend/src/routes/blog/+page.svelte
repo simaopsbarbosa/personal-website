@@ -30,7 +30,7 @@
 	{#each posts as post, index}
 		<Post {...post} />
 		{#if index < posts.length - 1}
-			<hr class="my-1 border-dotted" />
+			<hr class="my-1 border-dashed" />
 		{/if}
 	{/each}
 </div>

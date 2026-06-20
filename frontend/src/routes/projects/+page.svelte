@@ -56,7 +56,7 @@
 <p class="centered">The projects I'm proudest of</p>
 
 <div class="mx-10 mt-12">
-	<div class="space-y-3">
+	<div class="space-y-6">
 		{#each projects as project}
 			<div class="flex">
 				<div class="flex w-38 items-center justify-center">
@@ -70,7 +70,7 @@
 						>
 					{/if}
 				</div>
-				<div class="w-9/10 border-l border-dotted pl-4">
+				<div class="w-9/10 border-l border-dashed pl-4">
 					<p>{project.description}</p>
 					<a
 						href={project.link}
