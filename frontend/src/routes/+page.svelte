@@ -5,7 +5,7 @@
 <div class="flex flex-col centered gap-6 mt-10">
     <!-- title and subtitle -->
     <div>
-        <h1 class="centered font-title">Simão Barbosa</h1>
+        <h1 class="centered">Simão Barbosa</h1>
         <p class="centered">Software Engineer</p>
     </div>
 

@@ -1,30 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&display=swap');
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+.ancizar-serif-fontserif {
+  font-family: "Ancizar Serif", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
 * {
-	font-family: 'Times New Roman', Times, serif;
+	font-family: 'Ancizar Serif', Times, serif;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-@font-face {
-	font-family: 'TitleFont';
-	src: url('$lib/assets/fonts/sd_auto_pilot.woff2') format('woff2');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
 ::selection {
 	background-color: black;
 	color: #fefefe;
-}
-
-.font-title {
-	font-family: 'TitleFont', serif !important;
 }
 
 body {
