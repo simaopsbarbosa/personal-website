@@ -1,7 +1,7 @@
 <script>
-    let { children } = $props();
+	let { children } = $props();
 </script>
 
-<a href="/blog" class="underline secondary">(back)</a>
+<a href="/blog" class="secondary underline">(back)</a>
 
-<article class="bg-white shadow min-h-svh p-6 mt-2">{@render children()}</article>
+<article class="mt-2 min-h-svh bg-white p-6 shadow">{@render children()}</article>
