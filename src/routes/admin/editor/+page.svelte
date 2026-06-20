@@ -204,9 +204,9 @@
 	}
 </script>
 
-<div class="space-y-6">
+<div class="flex flex-col md:h-[calc(100vh-5rem)] pb-4 space-y-4">
 	<!-- page header -->
-	<div class="flex items-center justify-between border-b border-dashed pb-2">
+	<div class="flex items-center justify-between border-b border-dashed pb-2 flex-none">
 		<h2>{isEditing ? 'Edit Post' : 'New Post'}</h2>
 		<div class="flex gap-4">
 			<a href="/admin" class="secondary hover:underline">(cancel)</a>
@@ -222,18 +222,18 @@
 
 	<!-- feedback -->
 	{#if errorMessage}
-		<p class="secondary">{errorMessage}</p>
+		<p class="secondary flex-none">{errorMessage}</p>
 	{/if}
 	{#if successMessage}
-		<p class="secondary">{successMessage}</p>
+		<p class="secondary flex-none">{successMessage}</p>
 	{/if}
 
 	<!-- split screen -->
-	<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-0">
 		<!-- left side -->
-		<div class="space-y-4">
+		<div class="flex flex-col space-y-4 md:h-full md:min-h-0">
 			<!-- title -->
-			<div>
+			<div class="flex-none">
 				<label for="title" class="secondary block mb-1">title</label>
 				<input
 					type="text"
@@ -245,7 +245,7 @@
 			</div>
 
 			<!-- image importer -->
-			<div class="border border-dashed p-3">
+			<div class="border border-dashed p-3 flex-none">
 				<label for="image-upload" class="secondary block mb-1">upload files</label>
 				<div class="flex items-center gap-4 mt-2">
 					<input
@@ -269,8 +269,8 @@
 			</div>
 
 			<!-- HTML textarea -->
-			<div class="flex flex-col h-[50vh]">
-				<div class="flex items-center justify-between mb-1 flex-wrap gap-2">
+			<div class="flex flex-col h-[50vh] md:flex-1 md:min-h-0">
+				<div class="flex items-center justify-between mb-1 flex-wrap gap-2 flex-none">
 					<label for="content" class="secondary">HTML code</label>
 					<div class="flex flex-wrap gap-2 text-xs">
 						<button onclick={() => insertHTML('<h2>', '</h2>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(h2)</button>
@@ -288,13 +288,13 @@
 					bind:this={textareaElement}
 					bind:value={content}
 					placeholder="write HTML here..."
-					class="border border-dashed p-3 w-full grow font-mono leading-relaxed outline-hidden focus:border-black resize-none"
+					class="border border-dashed p-3 w-full flex-1 font-mono leading-relaxed outline-hidden focus:border-black resize-none min-h-0"
 				></textarea>
 			</div>
 		</div>
 
 		<!-- right side -->
-		<div class="border border-dashed p-6 max-h-[68vh] overflow-y-auto ">
+		<div class="border border-dashed p-6 max-h-[68vh] md:max-h-none md:h-full overflow-y-auto min-h-0">
 			<h3 class="secondary border-b border-dashed pb-2 mb-4">live preview</h3>
 			<div>
 				<h1>{title || 'Untitled Post'}</h1>
