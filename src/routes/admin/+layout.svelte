@@ -18,12 +18,15 @@
 </script>
 
 {#if isLoading}
-	<p class="secondary text-center py-12">loading...</p>
+	<p class="secondary py-12 text-center">loading...</p>
 {:else}
 	<div class="mx-10 mt-6">
 		{#if adminState.isAuthenticated}
 			<div class="mb-2 flex justify-end">
-				<button onclick={() => adminState.logout()} class="secondary cursor-pointer hover:underline border-0 bg-transparent p-0">
+				<button
+					onclick={() => adminState.logout()}
+					class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+				>
 					(logout)
 				</button>
 			</div>

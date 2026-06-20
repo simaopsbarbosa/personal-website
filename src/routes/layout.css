@@ -4,10 +4,10 @@
 @plugin '@tailwindcss/typography';
 
 .ancizar-serif-fontserif {
-  font-family: "Ancizar Serif", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+	font-family: 'Ancizar Serif', serif;
+	font-optical-sizing: auto;
+	font-weight: <weight>;
+	font-style: normal;
 }
 
 * {
@@ -15,7 +15,7 @@
 }
 
 a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 ::selection {
@@ -33,7 +33,7 @@ h1 {
 	font-size: 2rem;
 	line-height: 2.5rem;
 	letter-spacing: -0.05em;
-	font-weight:bolder;
+	font-weight: bolder;
 }
 
 h2 {

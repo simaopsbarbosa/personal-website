@@ -8,7 +8,7 @@ export const load: PageLoad = async ({ params }) => {
 	try {
 		const { data: post, error: dbError } = await supabase
 			.from('posts')
-			.select('id, slug, title, content, created_at, updated_at')
+			.select('id, slug, title, content, created_at, updated_at, draft')
 			.eq('slug', params.slug)
 			.single();
 
@@ -17,10 +17,18 @@ export const load: PageLoad = async ({ params }) => {
 			throw error(404, 'post not found');
 		}
 
+		if (post.draft) {
+			const {
+				data: { session }
+			} = await supabase.auth.getSession();
+			if (!session) {
+				throw error(404, 'post not found');
+			}
+		}
+
 		return { post };
 	} catch (e) {
 		console.error('failed to fetch post from Supabase:', e);
 		throw error(404, 'post not found');
 	}
 };
-

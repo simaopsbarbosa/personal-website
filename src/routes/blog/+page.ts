@@ -8,6 +8,7 @@ export const load: PageLoad = async () => {
 		const { data: posts, error } = await supabase
 			.from('posts')
 			.select('id, slug, title, content, created_at, updated_at')
+			.eq('draft', false)
 			.order('created_at', { ascending: false });
 
 		if (error) {
@@ -19,6 +20,6 @@ export const load: PageLoad = async () => {
 	} catch (e) {
 		console.error('failed to fetch posts from Supabase:', e);
 	}
-	
+
 	return { posts: [] };
 };

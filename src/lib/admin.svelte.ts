@@ -23,7 +23,9 @@ export class AdminState {
 	}
 
 	async checkAuth() {
-		const { data: { session } } = await supabase.auth.getSession();
+		const {
+			data: { session }
+		} = await supabase.auth.getSession();
 		this.#isAuthenticated = !!session;
 		this.#isInitialized = true;
 		return this.#isAuthenticated;
@@ -37,4 +39,3 @@ export class AdminState {
 }
 
 export const adminState = new AdminState();
-

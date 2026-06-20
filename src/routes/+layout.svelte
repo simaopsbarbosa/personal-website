@@ -31,7 +31,9 @@
 {:else}
 	<div class="relative flex min-h-screen flex-col">
 		<!-- vertical borders -->
-		<div class="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-3xl -translate-x-1/2 border-x border-dashed"></div>
+		<div
+			class="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-3xl -translate-x-1/2 border-x border-dashed"
+		></div>
 
 		<!-- nav bar -->
 		<nav class="relative z-10 mx-auto my-12 flex min-w-full justify-center border-y border-dashed">

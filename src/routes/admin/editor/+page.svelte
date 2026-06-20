@@ -13,6 +13,8 @@
 	let title = $state('');
 	let slug = $state('');
 	let content = $state('<h2>My Article</h2>\n<p>feeling inspired, si?</p>');
+	let draft = $state(true);
+	let originalDraft = $state(true);
 
 	// UI states
 	let isSaving = $state(false);
@@ -54,6 +56,8 @@
 				title = post.title;
 				slug = post.slug;
 				content = post.content;
+				draft = post.draft ?? false;
+				originalDraft = post.draft ?? false;
 			}
 		} catch (err) {
 			errorMessage = 'error connecting to Supabase.';
@@ -98,23 +102,54 @@
 
 		try {
 			const finalSlug = await generateUniqueSlug(title, postID || undefined);
+			const now = new Date().toISOString();
 
 			let error;
 			if (isEditing && postID) {
-				const { error: err } = await supabase
-					.from('posts')
-					.update({
-						title,
-						content,
-						slug: finalSlug,
-						updated_at: new Date().toISOString()
-					})
-					.eq('id', postID);
+				const updatePayload: {
+					title: string;
+					content: string;
+					slug: string;
+					draft: boolean;
+					updated_at: string;
+					created_at?: string;
+				} = {
+					title,
+					content,
+					slug: finalSlug,
+					draft,
+					updated_at: now
+				};
+
+				// If changing from draft to published, set created_at to now
+				if (originalDraft && !draft) {
+					updatePayload.created_at = now;
+				}
+
+				const { error: err } = await supabase.from('posts').update(updatePayload).eq('id', postID);
 				error = err;
 			} else {
-				const { error: err } = await supabase
-					.from('posts')
-					.insert([{ title, content, slug: finalSlug }]);
+				const insertPayload: {
+					title: string;
+					content: string;
+					slug: string;
+					draft: boolean;
+					created_at?: string;
+					updated_at?: string;
+				} = {
+					title,
+					content,
+					slug: finalSlug,
+					draft
+				};
+
+				// If created directly as published, set created_at and updated_at
+				if (!draft) {
+					insertPayload.created_at = now;
+					insertPayload.updated_at = now;
+				}
+
+				const { error: err } = await supabase.from('posts').insert([insertPayload]);
 				error = err;
 			}
 
@@ -128,7 +163,7 @@
 			setTimeout(() => {
 				goto('/admin');
 			}, 800);
-		} catch (err) {
+		} catch {
 			errorMessage = 'failed to connect to Supabase.';
 		} finally {
 			isSaving = false;
@@ -149,18 +184,16 @@
 			const fileName = `${Date.now()}.${ext}`;
 			const filePath = `${fileName}`;
 
-			const { data, error } = await supabase.storage
-				.from('blog-images')
-				.upload(filePath, file);
+			const { data, error } = await supabase.storage.from('blog-images').upload(filePath, file);
 
 			if (error) {
 				imageUploadError = error.message || 'failed to upload image.';
 				return;
 			}
 
-			const { data: { publicUrl } } = supabase.storage
-				.from('blog-images')
-				.getPublicUrl(filePath);
+			const {
+				data: { publicUrl }
+			} = supabase.storage.from('blog-images').getPublicUrl(filePath);
 
 			uploadedImageUrl = publicUrl;
 			// append image tag in raw HTML
@@ -204,16 +237,16 @@
 	}
 </script>
 
-<div class="flex flex-col md:h-[calc(100vh-5rem)] pb-4 space-y-4">
+<div class="flex flex-col space-y-4 pb-4 md:h-[calc(100vh-5rem)]">
 	<!-- page header -->
-	<div class="flex items-center justify-between border-b border-dashed pb-2 flex-none">
+	<div class="flex flex-none items-center justify-between border-b border-dashed pb-2">
 		<h2>{isEditing ? 'Edit Post' : 'New Post'}</h2>
 		<div class="flex gap-4">
 			<a href="/admin" class="secondary hover:underline">(cancel)</a>
 			<button
 				onclick={savePost}
 				disabled={isSaving}
-				class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent"
+				class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
 			>
 				{isSaving ? '(saving...)' : '(save post)'}
 			</button>
@@ -229,32 +262,45 @@
 	{/if}
 
 	<!-- split screen -->
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-0">
+	<div class="grid min-h-0 flex-1 grid-cols-1 gap-6 md:grid-cols-2">
 		<!-- left side -->
 		<div class="flex flex-col space-y-4 md:h-full md:min-h-0">
 			<!-- title -->
 			<div class="flex-none">
-				<label for="title" class="secondary block mb-1">title</label>
+				<label for="title" class="secondary mb-1 block">title</label>
 				<input
 					type="text"
 					id="title"
 					bind:value={title}
 					placeholder="post title"
-					class="border border-dashed p-2 w-full outline-hidden focus:border-black"
+					class="w-full border border-dashed p-2 outline-hidden focus:border-black"
 				/>
 			</div>
 
+			<!-- draft checkbox -->
+			<div class="flex flex-none items-center gap-2">
+				<input
+					type="checkbox"
+					id="draft"
+					bind:checked={draft}
+					class="h-4 w-4 cursor-pointer border border-dashed accent-black"
+				/>
+				<label for="draft" class="secondary cursor-pointer select-none">
+					save as draft (hidden from public blog)
+				</label>
+			</div>
+
 			<!-- image importer -->
-			<div class="border border-dashed p-3 flex-none">
-				<label for="image-upload" class="secondary block mb-1">upload files</label>
-				<div class="flex items-center gap-4 mt-2">
+			<div class="flex-none border border-dashed p-3">
+				<label for="image-upload" class="secondary mb-1 block">upload files</label>
+				<div class="mt-2 flex items-center gap-4">
 					<input
 						type="file"
 						id="image-upload"
 						accept="image/*"
 						onchange={handleImageUpload}
 						disabled={isUploadingImage}
-						class=" file:mr-2 file:border file:border-dashed file:bg-transparent file:px-2 file:py-1 file: file:cursor-pointer file:font-semibold hover:file:bg-black hover:file:text-white"
+						class=" file: file:mr-2 file:cursor-pointer file:border file:border-dashed file:bg-transparent file:px-2 file:py-1 file:font-semibold hover:file:bg-black hover:file:text-white"
 					/>
 					{#if isUploadingImage}
 						<span class="secondary animate-pulse">uploading...</span>
@@ -269,18 +315,51 @@
 			</div>
 
 			<!-- HTML textarea -->
-			<div class="flex flex-col h-[50vh] md:flex-1 md:min-h-0">
-				<div class="flex items-center justify-between mb-1 flex-wrap gap-2 flex-none">
+			<div class="flex h-[50vh] flex-col md:min-h-0 md:flex-1">
+				<div class="mb-1 flex flex-none flex-wrap items-center justify-between gap-2">
 					<label for="content" class="secondary">HTML code</label>
 					<div class="flex flex-wrap gap-2 text-xs">
-						<button onclick={() => insertHTML('<h2>', '</h2>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(h2)</button>
-						<button onclick={() => insertHTML('<p>', '</p>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(p)</button>
-						<button onclick={() => insertHTML('<strong>', '</strong>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(bold)</button>
-						<button onclick={() => insertHTML('<em>', '</em>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(italic)</button>
-						<button onclick={() => insertHTML('<a href="https://example.com" class="dotted-underline">', '</a>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(link)</button>
-						<button onclick={() => insertHTML('<blockquote>', '</blockquote>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(quote)</button>
-						<button onclick={() => insertHTML('<ul>\n\t<li>', '</li>\n\t<li></li>\n</ul>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(list)</button>
-						<button onclick={() => insertHTML('<code>', '</code>')} class="secondary cursor-pointer hover:underline p-0 border-0 bg-transparent">(code)</button>
+						<button
+							onclick={() => insertHTML('<h2>', '</h2>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(h2)</button
+						>
+						<button
+							onclick={() => insertHTML('<p>', '</p>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(p)</button
+						>
+						<button
+							onclick={() => insertHTML('<strong>', '</strong>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(bold)</button
+						>
+						<button
+							onclick={() => insertHTML('<em>', '</em>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(italic)</button
+						>
+						<button
+							onclick={() =>
+								insertHTML('<a href="https://example.com" class="dotted-underline">', '</a>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(link)</button
+						>
+						<button
+							onclick={() => insertHTML('<blockquote>', '</blockquote>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(quote)</button
+						>
+						<button
+							onclick={() => insertHTML('<ul>\n\t<li>', '</li>\n\t<li></li>\n</ul>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(list)</button
+						>
+						<button
+							onclick={() => insertHTML('<code>', '</code>')}
+							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
+							>(code)</button
+						>
 					</div>
 				</div>
 				<textarea
@@ -288,14 +367,16 @@
 					bind:this={textareaElement}
 					bind:value={content}
 					placeholder="write HTML here..."
-					class="border border-dashed p-3 w-full flex-1 font-mono leading-relaxed outline-hidden focus:border-black resize-none min-h-0"
+					class="min-h-0 w-full flex-1 resize-none border border-dashed p-3 font-mono leading-relaxed outline-hidden focus:border-black"
 				></textarea>
 			</div>
 		</div>
 
 		<!-- right side -->
-		<div class="border border-dashed p-6 max-h-[68vh] md:max-h-none md:h-full overflow-y-auto min-h-0">
-			<h3 class="secondary border-b border-dashed pb-2 mb-4">live preview</h3>
+		<div
+			class="max-h-[68vh] min-h-0 overflow-y-auto border border-dashed p-6 md:h-full md:max-h-none"
+		>
+			<h3 class="secondary mb-4 border-b border-dashed pb-2">live preview</h3>
 			<div>
 				<h1>{title || 'Untitled Post'}</h1>
 				<hr class="my-4 border-dashed" />
@@ -309,27 +390,27 @@
 
 <style>
 	:global(.prose h1) {
-		color:black;
+		color: black;
 		font-size: 1.8rem;
 		font-weight: bold;
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
 	}
 	:global(.prose h2) {
-		color:black;
+		color: black;
 		font-size: 1.5rem;
 		font-weight: bold;
 		margin-top: 1.2rem;
 		margin-bottom: 0.4rem;
 	}
 	:global(.prose p) {
-		color:black;
+		color: black;
 		margin-bottom: 1rem;
 		line-height: 1.6;
 	}
 	:global(.prose code) {
 		background-color: black;
-		color:white;
+		color: white;
 		padding: 0.2rem 0.4rem;
 		font-family: monospace;
 	}
