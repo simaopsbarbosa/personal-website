@@ -13,7 +13,7 @@
 	<img class="rendering-pixelated max-w-2xs" src={simao} alt="simaob" />
 
 	<p class="max-w-2xs text-center">
-		studying Informatics and Computing Engineering student @ <a href="https://www.up.pt/feup/en/"
+		studying Informatics and Computing Engineering @ <a href="https://www.up.pt/feup/en/"
 			>FEUP</a
 		>
 	</p>
