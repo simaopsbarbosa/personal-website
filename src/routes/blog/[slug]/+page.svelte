@@ -36,6 +36,7 @@
 		color: white;
 		padding: 0.2rem 0.4rem;
 		font-family: monospace;
+		font-weight: 400;
 	}
 	:global(.prose pre) {
 		background-color: #000000;

@@ -6,7 +6,7 @@
 </script>
 
 <h2 class="centered">My Thoughts</h2>
-<p class="centered">Some thoughts and lessons I want to share</p>
+<p class="centered">Some thoughts I want to share</p>
 
 <div class="mx-10 mt-12">
 	{#if data.posts && data.posts.length > 0}

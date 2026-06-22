@@ -60,3 +60,11 @@ h2 {
 	text-decoration-style: dotted;
 	text-underline-offset: 3px;
 }
+
+.prose code::before {
+	content: '' !important;
+}
+
+.prose code::after {
+	content: '' !important;
+}
