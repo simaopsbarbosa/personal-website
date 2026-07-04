@@ -44,7 +44,7 @@
 		{
 			title: 'Sixer',
 			description:
-				'Sixer is a collaborative Q&A platform for structured knowledge sharing, featuring reputation scoring, smart search, and content moderation.',
+				'Sixer is a freelancing platform where freelancers can offer their services and customers can browse and purchase them.',
 			link: 'https://github.com/simaopsbarbosa/sixer',
 			logo: sixerLogo
 		},
