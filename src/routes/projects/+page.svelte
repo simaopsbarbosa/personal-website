@@ -1,13 +1,13 @@
 <script>
 	import uniLogo from '$lib/assets/logos/uni.svg';
-	import uniBanner from '$lib/assets/projects/uni.png';
+	import uniBanner from '$lib/assets/projects/uni.webp';
 	import incluiLogo from '$lib/assets/logos/inclui.svg';
-	import incluiBanner from '$lib/assets/projects/inclui.png';
+	import incluiBanner from '$lib/assets/projects/inclui.webp';
 	import fallboundLogo from '$lib/assets/logos/fallbound.svg';
 	import sixerLogo from '$lib/assets/logos/sixer.png';
 	import pingpongLogo from '$lib/assets/logos/pingpong.png';
 	import whatimonLogo from '$lib/assets/logos/whatimon.svg';
-	import whatimonBanner from '$lib/assets/projects/whatimon.png';
+	import whatimonBanner from '$lib/assets/projects/whatimon.webp';
 
 	const projects = [
 		{
