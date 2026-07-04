@@ -7,7 +7,7 @@
 	import sixerLogo from '$lib/assets/logos/sixer.png';
 	import pingpongLogo from '$lib/assets/logos/pingpong.png';
 	import whatimonLogo from '$lib/assets/logos/whatimon.svg';
-	import whatimonBanner from '$lib/assets/projects/whatimon.webp';
+	import whatimonBanner from '$lib/assets/projects/whatimon.png';
 
 	const projects = [
 		{
