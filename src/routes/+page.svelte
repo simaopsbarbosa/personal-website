@@ -28,5 +28,6 @@
 			href="https://www.linkedin.com/in/simaopsbarbosa/https://www.linkedin.com/in/simaopsbarbosa/"
 			>linkedin</a
 		>
+		<a class="dotted-underline" href="mailto:simaopsbarbosa@gmail.com">email</a>
 	</div>
 </div>
