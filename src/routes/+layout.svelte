@@ -32,7 +32,7 @@
 	<div class="relative flex min-h-screen flex-col">
 		<!-- vertical borders -->
 		<div
-			class="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-3xl -translate-x-1/2 border-x border-dashed"
+			class="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-3xl -translate-x-1/2 border-dashed md:border-x"
 		></div>
 
 		<!-- nav bar -->

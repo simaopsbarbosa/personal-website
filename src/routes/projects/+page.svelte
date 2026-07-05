@@ -9,6 +9,9 @@
 	import whatimonLogo from '$lib/assets/logos/whatimon.svg';
 	import whatimonBanner from '$lib/assets/projects/whatimon.webp';
 
+	import FeaturedProject from '$lib/components/projects/FeaturedProject.svelte'; 
+	import Project from '$lib/components/projects/Project.svelte'; 
+
 	const projects = [
 		{
 			title: 'uni',
@@ -65,47 +68,9 @@
 	<div class="space-y-6">
 		{#each projects as project}
 			{#if project.banner}
-				<div class="flex flex-col items-center">
-					<div class="flex w-38 items-center justify-center">
-						<a href={project.link}
-							><img
-								src={project.banner}
-								alt="{project.title} banner"
-								class="max-h-75 w-auto max-w-140 p-6"
-							/></a
-						>
-					</div>
-					<div class="w-2/3 pb-6 text-center">
-						<p>{project.description}</p>
-						<a
-							href={project.link}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="secondary hover:underline">({project.link.slice(8)})</a
-						>
-					</div>
-				</div>
+				<FeaturedProject {...project} />
 			{:else}
-				<div class="flex">
-					<div class="flex w-38 items-center justify-center">
-						<a href={project.link}
-							><img
-								src={project.logo}
-								alt="{project.title} logo"
-								class="max-h-10 w-auto max-w-20"
-							/></a
-						>
-					</div>
-					<div class="w-9/10 border-l border-dashed pl-4">
-						<p>{project.description}</p>
-						<a
-							href={project.link}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="secondary hover:underline">({project.link.slice(8)})</a
-						>
-					</div>
-				</div>
+				<Project {...project} />	
 			{/if}
 		{/each}
 	</div>

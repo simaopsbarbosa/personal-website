@@ -3,7 +3,6 @@
 </script>
 
 <div class="centered mt-20 flex flex-col gap-6">
-
 	<h1 class="centered text-4xl font-bold">{page.status || 404}</h1>
 
 	<p class="max-w-md text-center">

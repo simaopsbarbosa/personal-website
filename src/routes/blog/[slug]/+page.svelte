@@ -5,7 +5,9 @@
 </script>
 
 <h2>{data.post.title}</h2>
-<p class="secondary pb-6">{formatDate(data.post.created_at)} | {calculateAge(data.post.created_at).formatted} old</p>
+<p class="secondary pb-6">
+	{formatDate(data.post.created_at)} | {calculateAge(data.post.created_at).formatted} old
+</p>
 
 <div class="prose max-w-none">
 	{@html data.post.content}
