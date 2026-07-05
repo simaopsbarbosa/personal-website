@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { formatDate } from '$lib/utils';
+	import { formatDate, calculateAge } from '$lib/utils';
 
 	let { data } = $props();
 </script>
 
 <h2>{data.post.title}</h2>
-<p class="secondary pb-6">{formatDate(data.post.created_at)}</p>
+<p class="secondary pb-6">{formatDate(data.post.created_at)} | {calculateAge(data.post.created_at).formatted} old</p>
 
 <div class="prose max-w-none">
 	{@html data.post.content}
