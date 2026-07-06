@@ -167,11 +167,7 @@
 							<div class="flex items-center gap-2">
 								<a href="/blog/{post.slug}">{post.title}</a>
 								{#if post.draft}
-									<span
-										class="border border-dashed px-1 font-mono text-[10px]"
-									>
-										draft
-									</span>
+									<span class="border border-dashed px-1 font-mono text-[10px]"> draft </span>
 								{/if}
 							</div>
 							<div class="flex items-center gap-2">

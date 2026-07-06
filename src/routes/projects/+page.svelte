@@ -9,8 +9,8 @@
 	import whatimonLogo from '$lib/assets/logos/whatimon.svg';
 	import whatimonBanner from '$lib/assets/projects/whatimon.webp';
 
-	import FeaturedProject from '$lib/components/projects/FeaturedProject.svelte'; 
-	import Project from '$lib/components/projects/Project.svelte'; 
+	import FeaturedProject from '$lib/components/projects/FeaturedProject.svelte';
+	import Project from '$lib/components/projects/Project.svelte';
 
 	const projects = [
 		{
@@ -70,7 +70,7 @@
 			{#if project.banner}
 				<FeaturedProject {...project} />
 			{:else}
-				<Project {...project} />	
+				<Project {...project} />
 			{/if}
 		{/each}
 	</div>

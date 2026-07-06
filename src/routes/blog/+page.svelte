@@ -11,7 +11,7 @@
 <div class="mx-10 mt-12">
 	{#if data.posts && data.posts.length > 0}
 		{#each data.posts as post, index}
-			<Post title={post.title} date={formatDate(post.created_at)} slug={post.slug}/>
+			<Post title={post.title} date={formatDate(post.created_at)} slug={post.slug} />
 			{#if index < data.posts.length - 1}
 				<hr class="my-1 border-dashed" />
 			{/if}

@@ -26,6 +26,16 @@
 	<link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
 	<link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
 	<title>Simão Barbosa</title>
+	<meta
+		name="description"
+		content="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
+	/>
+	<meta property="og:title" content="Simão Barbosa" />
+	<meta
+		property="og:description"
+		content="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
+	/>
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 {#if isException}
