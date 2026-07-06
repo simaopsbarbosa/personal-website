@@ -168,7 +168,7 @@
 								<a href="/blog/{post.slug}">{post.title}</a>
 								{#if post.draft}
 									<span
-										class="border border-dashed border-neutral-400 bg-neutral-200 px-1 font-mono text-[10px] text-neutral-800"
+										class="border border-dashed px-1 font-mono text-[10px]"
 									>
 										draft
 									</span>
