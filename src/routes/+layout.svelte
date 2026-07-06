@@ -1,6 +1,8 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.ico';
+	import favicon from '$lib/assets/favicon/favicon.ico';
+	import favicon16 from '$lib/assets/favicon/favicon-16x16.png';
+	import favicon32 from '$lib/assets/favicon/favicon-32x32.png';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import cv from '$lib/assets/cv.pdf';
@@ -20,7 +22,9 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={favicon} sizes="any" />
+	<link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
+	<link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
 	<title>Simão Barbosa</title>
 </svelte:head>
 
