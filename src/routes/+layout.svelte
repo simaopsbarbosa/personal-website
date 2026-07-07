@@ -50,7 +50,7 @@
 		></div>
 
 		<!-- nav bar -->
-		<nav class="relative z-10 mx-auto my-12 flex min-w-full justify-center border-y border-dashed">
+		<nav class="relative z-10 mx-auto mt-6 md:mt-12 mb-12 flex min-w-full justify-center border-y border-dashed">
 			<NavButton title="Home" link={resolve('/')} isClicked={isActive('/')} />
 			<NavButton title="Projects" link={resolve('/projects')} isClicked={isActive('/projects')} />
 			<NavButton title="Blog" link={resolve('/blog')} isClicked={isActive('/blog')} />

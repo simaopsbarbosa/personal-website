@@ -8,7 +8,7 @@
 			><img
 				src={banner}
 				alt="{title} banner"
-				class="max-h-60 w-auto max-w-120 p-6 md:max-h-75 md:max-w-140"
+				class="max-h-60 w-auto max-w-[80vw] p-6 md:max-h-75 md:max-w-140"
 			/></a
 		>
 	</div>
