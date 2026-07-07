@@ -11,7 +11,7 @@
 
 	<!-- picture of me -->
 	<img
-		class="rendering-pixelated max-w-[80vw] md:max-w-2xs"
+		class="rendering-pixelated max-w-[70vw] md:max-w-2xs"
 		src={simao}
 		alt="simaob"
 		title="hi ;)"
