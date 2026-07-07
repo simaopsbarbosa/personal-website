@@ -5,7 +5,6 @@
 	import favicon32 from '$lib/assets/favicon/favicon-32x32.png';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import cv from '$lib/assets/cv.pdf';
 	import NavButton from '$lib/components/NavButton.svelte';
 
 	let { children } = $props();
@@ -56,7 +55,7 @@
 			<NavButton title="Home" link={resolve('/')} isClicked={isActive('/')} />
 			<NavButton title="Projects" link={resolve('/projects')} isClicked={isActive('/projects')} />
 			<NavButton title="Blog" link={resolve('/blog')} isClicked={isActive('/blog')} />
-			<NavButton title="CV" link={cv} isClicked={false} />
+			<NavButton title="CV" link="/cv_simao_barbosa.pdf" isClicked={false} />
 		</nav>
 
 		<!-- content -->
