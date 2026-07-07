@@ -2,7 +2,7 @@
 	import simao from '$lib/assets/simao.png';
 </script>
 
-<div class="centered md:mt-10 flex flex-col gap-6">
+<div class="centered flex flex-col gap-6 md:mt-10">
 	<!-- title and subtitle -->
 	<div>
 		<h1 class="centered">Simão Barbosa</h1>
@@ -10,7 +10,12 @@
 	</div>
 
 	<!-- picture of me -->
-	<img class="rendering-pixelated max-w-[80vw] md:max-w-2xs" src={simao} alt="simaob" title="hi ;)" />
+	<img
+		class="rendering-pixelated max-w-[80vw] md:max-w-2xs"
+		src={simao}
+		alt="simaob"
+		title="hi ;)"
+	/>
 
 	<p class="max-w-2xs text-center">
 		studying Informatics and Computing Engineering @ <a href="https://www.up.pt/feup/en/">FEUP</a>
