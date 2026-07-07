@@ -8,7 +8,7 @@
 	</div>
 	<div class="w-[60vw] md:w-9/10 text-center md:border-l md:border-dashed md:pl-4 md:text-left">
 		<p>{description}</p>
-		<a href={link} target="_blank" rel="noopener noreferrer" class="secondary hover:underline"
+		<a href={link} target="_blank" rel="noopener noreferrer" class="secondary dotted-underline"
 			>({link.slice(8)})</a
 		>
 	</div>
