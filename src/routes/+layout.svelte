@@ -6,6 +6,8 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import NavButton from '$lib/components/NavButton.svelte';
+	import { preloadData } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
 
@@ -16,6 +18,12 @@
 		if (path === '/') return (pathname as string) === '/';
 		return (pathname as string).startsWith(`${path}/`);
 	}
+
+	onMount(() => {
+		preloadData('/blog').catch((err) => {
+			console.error('Error preloading blog data:', err);
+		});
+	});
 
 	const isException = $derived((pathname as string).startsWith('/admin/editor'));
 </script>
