@@ -32,7 +32,7 @@
 		{
 			title: "what i'm on",
 			description:
-				"what i'm on is a personal space to showcase your current obsessions and crowdsource your next favorite thing.",
+				"what i'm on is a personal space to showcase your current obsessions and crowdsource your next favorite thing. Built during the Shift APPens 26 hackathon, winner of the Best Design award.",
 			link: 'https://github.com/peucastro/what-im-on/',
 			logo: whatimonLogo,
 			banner: whatimonBanner
