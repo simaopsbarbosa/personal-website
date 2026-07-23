@@ -18,7 +18,7 @@
 	/>
 
 	<p class="max-w-2xs text-center">
-		studying Informatics and Computing Engineering @ <a href="https://www.up.pt/feup/en/">FEUP</a>
+		studying Software Engineering @ <a href="https://www.up.pt/feup/en/">FEUP</a>
 	</p>
 
 	<p>
