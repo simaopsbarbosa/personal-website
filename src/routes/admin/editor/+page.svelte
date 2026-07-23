@@ -346,9 +346,9 @@
 							>(link)</button
 						>
 						<button
-							onclick={() => insertHTML('<blockquote>', '</blockquote>')}
+							onclick={() => insertHTML('<pre>', '</pre>')}
 							class="secondary cursor-pointer border-0 bg-transparent p-0 hover:underline"
-							>(quote)</button
+							>(code block)</button
 						>
 						<button
 							onclick={() => insertHTML('<ul>\n\t<li>', '</li>\n\t<li></li>\n</ul>')}
@@ -388,39 +388,4 @@
 	</div>
 </div>
 
-<style>
-	:global(.prose h1) {
-		color: black;
-		font-size: 1.8rem;
-		font-weight: bold;
-		margin-top: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
-	:global(.prose h2) {
-		color: black;
-		font-size: 1.5rem;
-		font-weight: bold;
-		margin-top: 1.2rem;
-		margin-bottom: 0.4rem;
-	}
-	:global(.prose p) {
-		color: black;
-		margin-bottom: 1rem;
-		line-height: 1.6;
-	}
-	:global(.prose code) {
-		background-color: black;
-		color: white;
-		padding: 0.2rem 0.4rem;
-		font-family: monospace;
-		font-weight: 400;
-	}
-	:global(.prose pre) {
-		background-color: black;
-		border-radius: 0px !important;
-		color: #f9fafb;
-		padding: 1rem;
-		overflow-x: auto;
-		margin-bottom: 1rem;
-	}
-</style>
+

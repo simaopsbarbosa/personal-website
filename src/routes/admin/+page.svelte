@@ -118,13 +118,13 @@
 			<input
 				type="password"
 				bind:value={password}
-				placeholder="guess the magic word"
+				placeholder="Password"
 				required
-				class="border border-dashed p-2 font-mono outline-hidden transition"
+				class="border border-dashed p-2 outline-hidden transition"
 			/>
 
 			{#if loginError}
-				<p class="secondary text-center">nice try, but no</p>
+				<p class="secondary text-center">Incorrect</p>
 			{/if}
 
 			<button
@@ -132,7 +132,7 @@
 				disabled={isLoggingIn}
 				class="cursor-pointer border py-2 font-mono transition hover:bg-black hover:text-white disabled:opacity-50"
 			>
-				{isLoggingIn ? '(thinking...)' : 'submit'}
+				{isLoggingIn ? '(thinking...)' : 'Submit'}
 			</button>
 		</form>
 	</div>
@@ -159,21 +159,21 @@
 				<a href="/admin/editor" class="secondary hover:underline">(create first post)</a>
 			</div>
 		{:else}
-			<div class="space-y-4">
-				{#each posts as post (post.id)}
-					<!-- post -->
-					<div class="flex items-center justify-between border-b border-dashed py-2">
-						<div class="flex flex-col">
+			<div>
+				{#each posts as post, index (post.id)}
+					<div class="flex items-center justify-between py-2">
+						<div>
 							<div class="flex items-center gap-2">
-								<a href="/blog/{post.slug}">{post.title}</a>
+								<h3>
+									<a class="dotted-underline line-clamp-1 truncate" href="/blog/{post.slug}"
+										>{post.title}</a
+									>
+								</h3>
 								{#if post.draft}
 									<span class="border border-dashed px-1 font-mono text-[10px]"> draft </span>
 								{/if}
 							</div>
-							<div class="flex items-center gap-2">
-								<span class="secondary">{formatDate(post.created_at)}</span>
-								<span class="secondary">| {post.slug}</span>
-							</div>
+							<p class="secondary">{formatDate(post.created_at)} | {post.slug}</p>
 						</div>
 
 						<div class="flex gap-2">
@@ -194,6 +194,9 @@
 							</button>
 						</div>
 					</div>
+					{#if index < posts.length - 1}
+						<hr class="my-1 border-dashed" />
+					{/if}
 				{/each}
 			</div>
 		{/if}
