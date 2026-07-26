@@ -5,6 +5,8 @@
 	import { supabase } from '$lib/supabase';
 	import { adminState } from '$lib/admin.svelte';
 
+	import { processImageForUpload } from '$lib/imageUtils';
+
 	let isEditing = $state(false);
 	let originalSlug = $state('');
 	let postID = $state<number | null>(null);
@@ -174,17 +176,20 @@
 		const target = e.target as HTMLInputElement;
 		if (!target.files || target.files.length === 0) return;
 
-		const file = target.files[0];
+		const originalFile = target.files[0];
 		isUploadingImage = true;
 		imageUploadError = '';
 		uploadedImageUrl = '';
 
 		try {
-			const ext = file.name.split('.').pop();
+			const file = await processImageForUpload(originalFile);
+			const ext = file.name.split('.').pop() || (file.type === 'image/webp' ? 'webp' : 'png');
 			const fileName = `${Date.now()}.${ext}`;
 			const filePath = `${fileName}`;
 
-			const { data, error } = await supabase.storage.from('blog-images').upload(filePath, file);
+			const { data, error } = await supabase.storage.from('blog-images').upload(filePath, file, {
+				contentType: file.type
+			});
 
 			if (error) {
 				imageUploadError = error.message || 'failed to upload image.';
@@ -387,5 +392,3 @@
 		</div>
 	</div>
 </div>
-
-

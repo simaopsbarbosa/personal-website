@@ -16,5 +16,3 @@
 <div class="secondary centered pt-4">
 	At the time of writing, I was {calculateAge(data.post.created_at).formatted} old
 </div>
-
-
