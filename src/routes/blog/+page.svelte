@@ -1,9 +1,22 @@
 <script lang="ts">
+	import { MetaTags } from 'svelte-meta-tags';
+	import { page } from '$app/state';
 	import Post from '$lib/components/Post.svelte';
 	import { formatDate } from '$lib/utils';
 
 	let { data } = $props();
 </script>
+
+<MetaTags
+	title="Blog"
+	description="Some thoughts I want to share - Simão Barbosa's blog."
+	canonical={page.url.href}
+	openGraph={{
+		url: page.url.href,
+		title: 'Blog | Simão Barbosa',
+		description: 'Some thoughts I want to share - Simão Barbosa\'s blog.'
+	}}
+/>
 
 <h2 class="centered">My Thoughts</h2>
 <p class="centered">Some thoughts I want to share</p>

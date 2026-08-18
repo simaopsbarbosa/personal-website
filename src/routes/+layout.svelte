@@ -8,6 +8,7 @@
 	import NavButton from '$lib/components/NavButton.svelte';
 	import { preloadData } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { MetaTags } from 'svelte-meta-tags';
 
 	let { children } = $props();
 
@@ -28,21 +29,30 @@
 	const isException = $derived((pathname as string).startsWith('/admin/editor'));
 </script>
 
+<MetaTags
+	title="Simão Barbosa"
+	titleTemplate="%s | Simão Barbosa"
+	description="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
+	canonical={page.url.href}
+	openGraph={{
+		type: 'website',
+		url: page.url.href,
+		title: 'Simão Barbosa',
+		description: 'Personal website of Simão Barbosa, a Software Engineer studying at FEUP.',
+		siteName: 'Simão Barbosa'
+	}}
+	twitter={{
+		site: '@simaopsbarbosa',
+		cardType: 'summary_large_image',
+		title: 'Simão Barbosa',
+		description: 'Personal website of Simão Barbosa, a Software Engineer studying at FEUP.'
+	}}
+/>
+
 <svelte:head>
 	<link rel="icon" href={favicon} sizes="any" />
 	<link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
 	<link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
-	<title>Simão Barbosa</title>
-	<meta
-		name="description"
-		content="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
-	/>
-	<meta property="og:title" content="Simão Barbosa" />
-	<meta
-		property="og:description"
-		content="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
-	/>
-	<meta property="og:type" content="website" />
 </svelte:head>
 
 {#if isException}
