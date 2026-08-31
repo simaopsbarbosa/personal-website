@@ -8,7 +8,7 @@
 </script>
 
 <MetaTags
-	title="Blog"
+	title="Blog | Simão Barbosa"
 	description="Some thoughts I want to share - Simão Barbosa's blog."
 	canonical={page.url.href}
 	openGraph={{

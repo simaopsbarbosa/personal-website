@@ -64,7 +64,7 @@
 </script>
 
 <MetaTags
-	title="Projects"
+	title="Projects | Simão Barbosa"
 	description="The projects I'm proudest of - Simão Barbosa's work."
 	canonical={page.url.href}
 	openGraph={{

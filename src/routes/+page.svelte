@@ -1,6 +1,17 @@
 <script>
 	import simao from '$lib/assets/simao.png';
+	import { MetaTags } from 'svelte-meta-tags';
+	import { page } from '$app/state';
 </script>
+
+<MetaTags
+	title="Simão Barbosa"
+	canonical={page.url.href}
+	openGraph={{
+		url: page.url.href,
+		title: 'Simão Barbosa'
+	}}
+/>
 
 <div class="centered flex flex-col gap-6 md:mt-10">
 	<!-- title and subtitle -->

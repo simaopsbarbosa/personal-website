@@ -31,7 +31,6 @@
 
 <MetaTags
 	title="Simão Barbosa"
-	titleTemplate="%s | Simão Barbosa"
 	description="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
 	canonical={page.url.href}
 	openGraph={{
