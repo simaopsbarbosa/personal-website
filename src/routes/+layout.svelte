@@ -72,7 +72,7 @@
 			<NavButton title="Home" link={resolve('/')} isClicked={isActive('/')} />
 			<NavButton title="Projects" link={resolve('/projects')} isClicked={isActive('/projects')} />
 			<NavButton title="Blog" link={resolve('/blog')} isClicked={isActive('/blog')} />
-			<NavButton title="CV" link="/cv_simao_barbosa.pdf" isClicked={false} />
+			<NavButton title="CV" link="/Simao_Barbosa_CV.pdf" isClicked={false} />
 		</nav>
 
 		<!-- content -->
