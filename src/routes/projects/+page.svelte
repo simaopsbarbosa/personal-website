@@ -70,7 +70,7 @@
 	openGraph={{
 		url: page.url.href,
 		title: 'Projects | Simão Barbosa',
-		description: 'The projects I\'m proudest of - Simão Barbosa\'s work.'
+		description: "The projects I'm proudest of - Simão Barbosa's work."
 	}}
 />
 

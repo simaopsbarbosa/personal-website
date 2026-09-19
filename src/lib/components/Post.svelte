@@ -6,8 +6,10 @@
 
 <div class="justify-between py-2">
 	<h3>
-		<a class="dotted-underline break-words" href={resolve('/blog/[slug]', { slug })} data-sveltekit-preload-data="hover"
-			>{title}</a
+		<a
+			class="dotted-underline break-words"
+			href={resolve('/blog/[slug]', { slug })}
+			data-sveltekit-preload-data="hover">{title}</a
 		>
 	</h3>
 	<p class="secondary">{date}</p>
