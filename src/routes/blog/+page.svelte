@@ -14,7 +14,7 @@
 	openGraph={{
 		url: page.url.href,
 		title: 'Blog | Simão Barbosa',
-		description: 'Some thoughts I want to share - Simão Barbosa\'s blog.'
+		description: "Some thoughts I want to share - Simão Barbosa's blog."
 	}}
 />
 
