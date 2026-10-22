@@ -1,5 +1,5 @@
-<script>
-	import simao from '$lib/assets/simao.png';
+<script lang="ts">
+	import Portrait from '$lib/components/Portrait.svelte';
 	import { MetaTags } from 'svelte-meta-tags';
 	import { page } from '$app/state';
 </script>
@@ -21,12 +21,7 @@
 	</div>
 
 	<!-- picture of me -->
-	<img
-		class="rendering-pixelated max-w-[70vw] md:max-w-2xs"
-		src={simao}
-		alt="simaob"
-		title="hi ;)"
-	/>
+	<Portrait />
 
 	<p class="max-w-2xs text-center">
 		studying Software Engineering @ <a href="https://www.up.pt/feup/en/">FEUP</a>
