@@ -7,7 +7,9 @@ export const load: PageLoad = async () => {
 	try {
 		const { data: posts, error } = await supabase
 			.from('posts')
-			.select('id, slug, title, content, created_at, updated_at')
+			// ⚡ Bolt Optimization: Only select needed fields to prevent over-fetching
+			// Previously selected 'content' and 'updated_at' which aren't used in the list view
+			.select('id, slug, title, created_at')
 			.eq('draft', false)
 			.order('created_at', { ascending: false });
 
