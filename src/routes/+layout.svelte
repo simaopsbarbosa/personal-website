@@ -62,12 +62,12 @@
 	<div class="relative flex min-h-screen flex-col">
 		<!-- vertical borders -->
 		<div
-			class="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-3xl -translate-x-1/2 border-dashed md:border-x"
+			class="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-3xl -translate-x-1/2 border-dotted md:border-x"
 		></div>
 
 		<!-- nav bar -->
 		<nav
-			class="relative z-10 mx-auto mt-6 mb-12 flex min-w-full justify-center border-y border-dashed md:mt-12"
+			class="relative z-10 mx-auto mt-6 mb-12 flex min-w-full justify-center border-y border-dotted md:mt-12"
 		>
 			<NavButton title="Home" link={resolve('/')} isClicked={isActive('/')} />
 			<NavButton title="Projects" link={resolve('/projects')} isClicked={isActive('/projects')} />
