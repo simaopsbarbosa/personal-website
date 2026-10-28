@@ -29,7 +29,7 @@
 
 	<p>
 		co-coordinator of <a href="https://apps.apple.com/pt/app/uni/id1585951339">uni</a> @
-		<a href="https://niaefeup.pt/">NIAEFEUP</a>
+		<a href="https://nifeup.com/">NIFEUP</a>
 	</p>
 
 	<div class="flex gap-4">
