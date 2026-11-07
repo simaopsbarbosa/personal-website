@@ -7,6 +7,7 @@
 		><img
 			src={banner}
 			alt="{title} banner"
+			loading="lazy"
 			class="max-h-60 w-auto max-w-[95vw] p-6 md:max-h-75 md:max-w-140"
 		/></a
 	>
