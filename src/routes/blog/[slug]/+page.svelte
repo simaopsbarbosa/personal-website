@@ -4,7 +4,7 @@
 	let { data } = $props();
 </script>
 
-<h1>{data.post.title}</h1>
+<h2>{data.post.title}</h2>
 <p class="secondary pb-6">
 	{formatDate(data.post.created_at)}
 </p>

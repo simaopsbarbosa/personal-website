@@ -5,7 +5,7 @@
 	let { data } = $props();
 </script>
 
-<h1 class="centered">My Thoughts</h1>
+<h2 class="centered">My Thoughts</h2>
 <p class="centered">Some thoughts I want to share</p>
 
 <div class="mx-10 mt-12">

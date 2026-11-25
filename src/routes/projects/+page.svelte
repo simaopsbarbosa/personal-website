@@ -24,13 +24,10 @@
 		{
 			title: 'uni',
 			description:
-				'I co-coordinate uni at NIFEUP. The app gives University of Porto students one place to check class schedules, exam dates, grades, and campus resources.',
+				'Uni is a mobile app designed to help students of the University of Porto to manage their academic life.',
 			links: [
 				{ label: 'github', href: 'https://github.com/NIAEFEUP/uni' },
-				{
-					label: 'google play',
-					href: 'https://play.google.com/store/apps/details?id=pt.up.fe.ni.uni&hl=pt_PT&gl=US&pli=1&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
-				},
+				{ label: 'google play', href: 'https://play.google.com/store/apps/details?id=pt.up.fe.ni.uni&hl=pt_PT&gl=US&pli=1&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' },
 				{ label: 'app store', href: 'https://apps.apple.com/pt/app/uni/id1585951339' }
 			],
 			logo: uniLogo,
@@ -39,7 +36,7 @@
 		{
 			title: 'Inclui',
 			description:
-				'I built Inclui with four classmates at FEUP. The app lets people find and report accessibility features like wheelchair ramps and Braille menus so they can choose places that meet their needs.',
+				'Inclui is a mobile app for finding and reporting accessibility features in public spaces, powered by community data.',
 			links: [{ label: 'github', href: 'https://github.com/simaopsbarbosa/inclui' }],
 			logo: incluiLogo,
 			banner: incluiBanner
@@ -48,8 +45,7 @@
 			title: "what i'm on",
 			description:
 				"what i'm on is a personal space to showcase your current obsessions and crowdsource your next favorite thing. Built during the Shift APPens 26 hackathon, winner of the Best Design award.",
-			links: [
-				{ label: 'github', href: 'https://github.com/peucastro/what-im-on/' },
+			links: [{ label: 'github', href: 'https://github.com/peucastro/what-im-on/' },
 				{ label: 'website', href: 'https://whatimon.vercel.app/' }
 			],
 			logo: whatimonLogo,
@@ -82,7 +78,7 @@
 	];
 </script>
 
-<h1 class="centered">My Work</h1>
+<h2 class="centered">My Work</h2>
 <p class="centered">The projects I'm proudest of</p>
 
 <div class="mx-10 my-12">

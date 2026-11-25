@@ -1,17 +1,19 @@
 <script lang="ts">
 	import Portrait from '$lib/components/Portrait.svelte';
-
-	let { data } = $props();
 </script>
 
 <div class="centered flex flex-col gap-6 md:mt-10">
-	<h1 class="centered">Simão Barbosa</h1>
+	<!-- title and subtitle -->
+	<div>
+		<h1 class="centered">Simão Barbosa</h1>
+		<p class="centered">Software Engineer</p>
+	</div>
 
 	<!-- picture of me -->
 	<Portrait />
 
-	<p class="max-w-sm px-4 text-center">
-		{data.pageMetaTags.description}
+	<p class="max-w-2xs text-center">
+		studying Software Engineering @ <a href="https://www.up.pt/feup/en/">FEUP</a>
 	</p>
 
 	<p>
