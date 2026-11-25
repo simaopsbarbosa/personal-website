@@ -1,8 +1,5 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon/favicon.ico';
-	import favicon16 from '$lib/assets/favicon/favicon-16x16.png';
-	import favicon32 from '$lib/assets/favicon/favicon-32x32.png';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import NavButton from '$lib/components/NavButton.svelte';
@@ -14,6 +11,13 @@
 
 	type NavPath = '/' | '/blog' | '/projects';
 	const pathname = $derived(page.url.pathname);
+	const siteName = 'Simão Barbosa';
+	const canonical = $derived(`https://simaob.com${pathname}`);
+	const title = $derived(page.data.pageMetaTags?.title ?? siteName);
+	const description = $derived(
+		page.data.pageMetaTags?.description ||
+			'Personal website of Simão Barbosa, a Software Engineer studying at FEUP.'
+	);
 
 	function isActive(path: NavPath): boolean {
 		if (path === '/') return (pathname as string) === '/';
@@ -30,28 +34,15 @@
 </script>
 
 <MetaTags
-	title="Simão Barbosa"
-	description="Personal website of Simão Barbosa, a Software Engineer studying at FEUP."
-	canonical={page.url.href}
-	openGraph={{
-		type: 'website',
-		url: page.url.href,
-		title: 'Simão Barbosa',
-		description: 'Personal website of Simão Barbosa, a Software Engineer studying at FEUP.',
-		siteName: 'Simão Barbosa'
-	}}
-	twitter={{
-		site: '@simaopsbarbosa',
-		cardType: 'summary_large_image',
-		title: 'Simão Barbosa',
-		description: 'Personal website of Simão Barbosa, a Software Engineer studying at FEUP.'
-	}}
+	{title}
+	{description}
+	{canonical}
+	openGraph={{ type: 'website', url: canonical, title, description, siteName }}
+	twitter={{ site: '@simaopsbarbosa', cardType: 'summary_large_image' }}
 />
 
 <svelte:head>
-	<link rel="icon" href={favicon} sizes="any" />
-	<link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
-	<link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
 </svelte:head>
 
 {#if isException}

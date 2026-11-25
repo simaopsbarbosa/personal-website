@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { MetaTags } from 'svelte-meta-tags';
-	import { page } from '$app/state';
 	import uniLogo from '$lib/assets/logos/uni.svg';
 	import uniBanner from '$lib/assets/projects/uni.webp';
 	import incluiLogo from '$lib/assets/logos/inclui.svg';
@@ -79,17 +77,6 @@
 		}
 	];
 </script>
-
-<MetaTags
-	title="Projects | Simão Barbosa"
-	description="The projects I'm proudest of - Simão Barbosa's work."
-	canonical={page.url.href}
-	openGraph={{
-		url: page.url.href,
-		title: 'Projects | Simão Barbosa',
-		description: "The projects I'm proudest of - Simão Barbosa's work."
-	}}
-/>
 
 <h2 class="centered">My Work</h2>
 <p class="centered">The projects I'm proudest of</p>

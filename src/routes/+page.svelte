@@ -1,17 +1,6 @@
 <script lang="ts">
 	import Portrait from '$lib/components/Portrait.svelte';
-	import { MetaTags } from 'svelte-meta-tags';
-	import { page } from '$app/state';
 </script>
-
-<MetaTags
-	title="Simão Barbosa"
-	canonical={page.url.href}
-	openGraph={{
-		url: page.url.href,
-		title: 'Simão Barbosa'
-	}}
-/>
 
 <div class="centered flex flex-col gap-6 md:mt-10">
 	<!-- title and subtitle -->
@@ -32,7 +21,7 @@
 		<a href="https://nifeup.com/">NIFEUP</a>
 	</p>
 
-	<div class="flex gap-4">
+	<div class="flex gap-4" data-nosnippet>
 		<a class="dotted-underline" href="https://github.com/simaopsbarbosa">github</a>
 		<a class="dotted-underline" href="https://www.linkedin.com/in/simaopsbarbosa/">linkedin</a>
 		<a class="dotted-underline" href="mailto:simaopsbarbosa@gmail.com">email</a>

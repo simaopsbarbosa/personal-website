@@ -1,6 +1,7 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { supabase } from '$lib/supabase';
+import { definePageMetaTags } from 'svelte-meta-tags';
 
 export const prerender = false;
 
@@ -26,7 +27,13 @@ export const load: PageLoad = async ({ params }) => {
 			}
 		}
 
-		return { post };
+		return {
+			post,
+			...definePageMetaTags({
+				title: `${post.title} | Simão Barbosa`,
+				description: post.content.substring(0, 160).replace(/<[^>]+>/g, '')
+			})
+		};
 	} catch (e) {
 		console.error('failed to fetch post from Supabase:', e);
 		throw error(404, 'post not found');
